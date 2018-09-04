@@ -8,15 +8,17 @@ This repository includes the code for the backend API Server that you'll use to 
 
 ## Getting started
 
-$ npm install
-$ npm start
-
-It will install all dependencies and start the project at localhost:3000
-
+$ cd api-server
 $ npm install
 $ node server
 
 It will install all dependencies and start the server at localhost:3001
+
+$ cd frontend
+$ npm install
+$ npm start
+
+It will install all dependencies and start the project at localhost:3000
 
 ## Developing
 
