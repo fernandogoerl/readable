@@ -12,3 +12,5 @@ const compare = (post1, post2, orderBy) => {
 };
 
 export const order = (posts, orderBy) => (posts.sort((post1, post2) => compare(post1, post2, orderBy)));
+
+export const filterBy = (post, categoryName) => (post.category.includes(categoryName));
