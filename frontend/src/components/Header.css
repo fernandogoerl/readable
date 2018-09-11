@@ -1,0 +1,33 @@
+.header{
+    position: absolute;
+    top:0;
+    width: 100%;
+    text-align: center;
+}
+
+.header .title{
+    margin: 1rem;
+}
+
+.categories{
+    margin: 0;
+    background-color: lightgrey;
+    padding: .5rem 0;
+}
+
+svg {
+    height: 2rem;
+    width: 2rem;
+    vertical-align: middle;
+}
+
+.categories li {
+    list-style: none;
+    display: inline;
+    padding: 0 1rem;
+    text-transform: capitalize;
+}
+
+.categories li a{
+    text-transform: capitalize;
+}
