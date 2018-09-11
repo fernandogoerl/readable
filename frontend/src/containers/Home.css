@@ -1,0 +1,19 @@
+.home-container{
+    margin-top: 128px;
+}
+
+.popular-posts {
+    text-align: left;
+    margin: auto;
+    max-width: 50%;
+    padding-left: 3rem
+}
+
+.popular-posts ul {
+    padding-left: 0;
+}
+
+.popular-posts li {
+    list-style: none;
+    text-align: left;
+}
