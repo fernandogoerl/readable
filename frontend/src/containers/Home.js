@@ -1,59 +1,62 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class Home extends Component {
-    static propTypes = {
-        categories: PropTypes.array.isRequired
+import { fetchAllPosts, fetchCategoryPosts } from '../actions';
+
+import * as helpers from "../helpers";
+
+import './Home.css'
+
+class Home extends Component {
+
+    componentDidMount() {
+        if(this.props.match.params.category) {
+            this.props.fetchCategoryPosts(this.props.match.params.category);
+            console.log(`teste ${this.props.location.pathname !== '/'}`);
+        } else this.props.fetchAllPosts();
+    }
+
+    componentDidUpdate(prevProps) {
+        if( this.props.location.pathname !== prevProps.location.pathname ) {
+            this.props.fetchCategoryPosts(this.props.match.params.category);
+        }
     }
 
     render() {
-        const { categories, posts } = this.props.state;
+        const { posts, location } = this.props;
+
+        let orderedPosts = location.search ? helpers.order(posts, location.search) : posts;
+
         return (
-            <div>
-                <header>
-                    <h1>Readable</h1>
-                </header>
-                {categories.length > 0 &&
-                <div>
-                    <h2>Categories</h2>
-                    <ul>
-                        {categories.map((category) => (
-                            <li>
-                            <Link to='/category'>
-                                {category.name}
-                            </Link>
-                        </li>
-                        ))}
-                    </ul>
-                </div>}
+            <div className='home-container'>
                 {posts &&
-                <div>
+                <div className='popular-posts'>
                     <h2>Popular Posts</h2>
                     <ul>
-                        {posts.map((post) => (
-                            <li>
-                            <Link to='/post/:id'>
-                                {post.name}
-                            </Link>
-                        </li>
+                        {orderedPosts &&
+                        orderedPosts.map((post) => (
+                            <li key={post.id}>
+                                <Link to='/post/:id'>{`${post.title}`}</Link> ({post.voteScore} votes)
+                            </li>
                         ))}
                     </ul>
                 </div>}
-                <div>
-                    <h2>Popular</h2>
-                    <select>
-                        <option>Most Popular</option>
-                        <option>Least Popular</option>
-                        <option>Post Date</option>
-                    </select>
-                    <ul>
-                        <li>Popular Post 1</li>
-                        <li>Popular Post 2</li>
-                        <li>...</li>
-                    </ul>
-                </div>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		posts: state.posts,
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchAllPosts: () => dispatch(fetchAllPosts()),
+        fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
