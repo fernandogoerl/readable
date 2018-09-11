@@ -2,6 +2,7 @@ const compare = (post1, post2, orderBy) => {
     switch(orderBy) {
         case 'author' :
         case 'title' :
+        case 'timeStamp' :
             if(post1[orderBy] < post2[orderBy]) { return -1; }
             else if(post1[orderBy] > post2[orderBy]) { return 1; }
             else { return post2.voteScore - post1.voteScore; }
@@ -11,6 +12,8 @@ const compare = (post1, post2, orderBy) => {
     }
 };
 
-export const order = (posts, orderBy) => (posts.sort((post1, post2) => compare(post1, post2, orderBy)));
+const parseOrder = (str) => (str.substring(7));
 
-export const filterBy = (post, categoryName) => (post.category.includes(categoryName));
+export const order = (posts, orderBy) =>
+    (posts.sort((post1, post2) =>
+        compare(post1, post2, parseOrder(orderBy))));
