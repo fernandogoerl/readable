@@ -23,7 +23,17 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     parentDeleted: false
-  }
+  },
+  "8tu4bsun805n8un48vfbc": {
+    id: '8tu4bsun805n8un48vfbc',
+    parentId: "8xf0y6ziyjabvozdd25fbc",
+    timestamp: 1469479768530,
+    body: 'Comments. Are. Cool. (2)',
+    author: 'thingtwo',
+    voteScore: 0,
+    deleted: false,
+    parentDeleted: false
+  },
 }
 
 function getData (token) {
