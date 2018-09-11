@@ -1,29 +1,42 @@
 import * as api from '../api'
-
-export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
-export const LOAD_POSTS = 'LOAD_POSTS';
+import * as types from './types'
 
 
 export const loadCategories = (categories) => {
     return {
-        type: LOAD_CATEGORIES,
+        type: types.LOAD_CATEGORIES,
         categories
     };
-}
+};
 
 export const fetchCategories = () => (dispatch) =>
     api.getAllCategories()
-        .then((categories) => dispatch(loadCategories(categories)))
+        .then((categories) => dispatch(loadCategories(categories)));
 
-
-export const loadAllPosts = (posts) => {
+export const loadPosts = (posts) => {
     return {
-        type: LOAD_POSTS,
-        posts
+        type: types.LOAD_POSTS,
+        posts,
     };
-}
+};
 
 export const fetchAllPosts = () => (dispatch) => {
     api.getAllPosts()
-        .then((posts) => dispatch(loadAllPosts(posts)));
-}
+    .then((posts) => dispatch(loadPosts(posts)));
+};
+
+export const loadCategoryPosts = (posts) => {
+    console.log(`loadCategoryPosts ${posts}`);
+
+    return {
+        type: types.LOAD_CATEGORY_POSTS,
+        posts,
+    };
+};
+
+export const fetchCategoryPosts = (category) => (dispatch) => {
+    console.log(`fetchCategoryPosts ${category}`);
+
+    api.getCategoryPosts(category)
+        .then((posts) => dispatch(loadCategoryPosts(posts)));
+};
