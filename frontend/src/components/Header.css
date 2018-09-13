@@ -1,33 +1,47 @@
 .header{
-    position: absolute;
+    position: relative;
     top:0;
     width: 100%;
     text-align: center;
+    margin: auto;
+    background-color: cornflowerblue;
+    color: white;
 }
 
 .header .title{
-    margin: 1rem;
+    padding: 1rem;
 }
 
-.categories{
+.header span{
+    padding: 1rem;
+}
+
+.header-bar{
+    border-top: 2px solid white;
+}
+
+.categories, .order{
     margin: 0;
-    background-color: lightgrey;
-    padding: .5rem 0;
+    padding-left: 0;
+    display: inline-block;
 }
 
-svg {
-    height: 2rem;
-    width: 2rem;
-    vertical-align: middle;
+.categories li, .order li {
+    display: inline-block;
+    padding: .5rem 1rem;
 }
 
-.categories li {
-    list-style: none;
-    display: inline;
-    padding: 0 1rem;
+.categories li a, .order li a{
     text-transform: capitalize;
+    color: white;
 }
 
-.categories li a{
-    text-transform: capitalize;
+.categories li:hover, .order li:hover{
+    font-weight: 500;
+    background-color: dodgerblue;
+}
+
+.active{
+    font-weight: 500;
+    background-color: dodgerblue;
 }
