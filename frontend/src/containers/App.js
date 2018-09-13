@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Post from '../components/Post';
 
+import './App.css'
+
 
 export default class App extends Component {
 
@@ -13,9 +15,11 @@ export default class App extends Component {
         return (
             <div>
                 <Header/>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/:category' component={Home} />
-                <Route exact path='/post/:id' component={Post} />
+                <div className='content-container'>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/:category' component={Home} />
+                    <Route exact path='/posts/:id' component={Post} />
+                </div>
                 <Footer/>
             </div>
         );
