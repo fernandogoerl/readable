@@ -21,9 +21,29 @@ function posts (state = [], action) {
     }
 }
 
+function post (state = [], action) {
+    switch (action.type) {
+        case types.LOAD_SINGLE_POST :
+            return action.post;
+        default :
+            return state;
+    }
+}
+
+function comments (state = [], action) {
+    switch (action.type) {
+        case types.LOAD_POST_COMMENTS :
+            return action.comments;
+        default :
+            return state;
+    }
+}
+
 
 
 export default combineReducers({
     categories,
     posts,
+    post,
+    comments,
 });

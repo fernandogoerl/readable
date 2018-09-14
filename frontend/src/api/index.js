@@ -10,45 +10,35 @@ const headers = {
     'Authorization' : token,
 }
 
-// export const getAllCategories = () => (
-//     fetch(`${api}/categories`, { headers })
-//         .then(res => res.json())
-//         .then(data => data.categories));
-
-// export const getAllPosts = () => (
-//     fetch(`${api}/posts`, { headers })
-//         .then(res => res.json())
-//         .then(data => data));
-
-// export const getCategoryPosts = category => (
-//     fetch(`${api}/${category}/posts`, { headers })
-//         .then(res => res.json())
-//         .then(data => data.posts));
-
 export const getAllCategories = async () => {
     const req = new Request(`${api}/categories`, { headers });
     const res = await fetch(req);
-
-    const posts = await res.json().then(data => data.categories);
-    return posts;
+    const categories = await res.json().then(data => data.categories);
+    return categories;
 };
 
 export const getAllPosts = async () => {
     const req = new Request(`${api}/posts`, { headers });
-    const res = await fetch(req);
-
-    const posts = await res.json().then(data => data);
+    const posts = await fetch(req).then(res => res.json())
     return posts;
 };
 
 export const getCategoryPosts = async (category) => {
     const req = new Request(`${api}/${category}/posts`, { headers });
-    const res = await fetch(req);
-    console.log(getCategoryPosts);
-    console.log(res);
-
-    const posts = await res.json().then(data => data);
+    const posts = await fetch(req).then(res => res.json())
     return posts;
+};
+
+export const getSinglePost = async (id) => {
+    const req = new Request(`${api}/posts/${id}`, { headers });
+    const post = await fetch(req).then(res => res.json())
+    return post;
+};
+
+export const getPostComments = async (id) => {
+    const req = new Request(`${api}/posts/${id}/comments`, { headers });
+    const post = await fetch(req).then(res => res.json())
+    return post;
 };
 
 // export const update = (book, shelf) =>
