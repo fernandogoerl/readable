@@ -18,4 +18,6 @@ export const order = (posts, orderBy) =>
     (posts.sort((post1, post2) =>
         compare(post1, post2, parseOrder(orderBy))));
 
-export const timeConverter = (timestamp) => (new Date(timestamp));
+const timeConverter = (timestamp) => (new Date(timestamp));
+
+export const getMetaInfo = (data) => (`Posted on ${timeConverter(data.timestamp).toDateString()} at ${timeConverter(data.timestamp).getHours()}:${timeConverter(data.timestamp).getMinutes()} by ${data.author}`)
