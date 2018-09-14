@@ -20,7 +20,6 @@ class Home extends Component {
     componentDidMount() {
         if (this.props.match.params.category) {
             this.props.fetchCategoryPosts(this.props.match.params.category);
-            this.setState({ currentCategory: this.props.match.params.category});
         } else this.props.fetchAllPosts();
 
     }
@@ -32,9 +31,6 @@ class Home extends Component {
         if (this.props.location.search && this.props.location.search !== prevProps.location.search ) {
             let currentOrder = this.props.location.search.substring(7);
             this.setState({ currentOrder });
-        }
-        if (this.props.match.params.category && this.props.match.params.category !== prevProps.match.params.category ) {
-            this.setState({ currentCategory: this.props.match.params.category});
         }
     }
 
@@ -51,6 +47,8 @@ class Home extends Component {
         }
     };
 
+    manageActive = (currentOrder, order) => (currentOrder === order ? 'active' : '')
+
     render() {
         const { posts, location } = this.props;
         const { currentCategory, currentOrder } = this.state;
@@ -61,9 +59,9 @@ class Home extends Component {
                 <div className='header header-bar'>
                     <span className='bold'>{'Order by'}</span>
                     <ul className='order'>
-                        <li><Link to={{ search: '?order=voteScore' }}>{'votes'}</Link></li>
-                        <li><Link to={{ search: '?order=title' }}>{'title'}</Link></li>
-                        <li><Link to={{ search: '?order=timestamp' }}>{'time'}</Link></li>
+                        <li className={this.manageActive(currentOrder, 'voteScore')}><Link to={{ search: '?order=voteScore' }}>{'votes'}</Link></li>
+                        <li className={this.manageActive(currentOrder, 'title')}><Link to={{ search: '?order=title' }}>{'title'}</Link></li>
+                        <li className={this.manageActive(currentOrder, 'timestamp')}><Link to={{ search: '?order=timestamp' }}>{'time'}</Link></li>
                     </ul>
                 </div>
                 {posts && <div className='home-content'>
