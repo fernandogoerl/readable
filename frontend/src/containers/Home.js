@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import {fetchAllPosts, fetchCategoryPosts} from '../actions';
+import { fetchAllPosts, fetchCategoryPosts } from '../actions';
 
-import { order, timeConverter} from "../helpers";
+import { order } from "../helpers";
 
 import './Home.css'
+
+import BasicBlock from "../components/BasicBlock";
 
 class Home extends Component {
 
@@ -38,12 +40,14 @@ class Home extends Component {
 
     manageOrder = (currentOrder) => {
         switch (currentOrder) {
-            case 'voteScore':
+            case 'voteScore' :
                 return 'Popular Posts';
-            case 'title':
+            case 'title' :
                 return 'All Posts A-Z';
-            case 'timestamp':
+            case 'timestamp' :
                 return 'Recent Posts';
+            default :
+                return 'Popular Posts';
         }
     };
 
@@ -62,25 +66,16 @@ class Home extends Component {
                         <li><Link to={{ search: '?order=timestamp' }}>{'time'}</Link></li>
                     </ul>
                 </div>
-                <div>
-                    {posts && <div className='home-content'>
-                        <h2 className='center'>{`${this.manageOrder(currentOrder)} on /${currentCategory}`}</h2>
-                        <ul>{orderedPosts.length > 0
-                            ? (orderedPosts.map((post) =>
-                                <li key={post.id}>
-                                    <div className='basic-container'>
-                                        <Link to={`/posts/${post.id}`}><h3>{post.title}</h3></Link>
-                                        <h4>{post.body}</h4>
-                                        <h5>{`(${post.voteScore} votes)`}</h5>
-                                        <span className='meta-info'>
-                                            {`Posted on ${timeConverter(post.timestamp).toDateString()} at ${timeConverter(post.timestamp).getHours()}:${timeConverter(post.timestamp).getMinutes()} by ${post.author}`}
-                                        </span>
-                                    </div>
-                                </li>))
-                            : `nothing to see here`}
-                        </ul>
-                    </div>}
-                </div>
+                {posts && <div className='home-content'>
+                    <h2 className='center'>{`${this.manageOrder(currentOrder)} on /${currentCategory}`}</h2>
+                    <ul>{orderedPosts.length > 0
+                        ? (orderedPosts.map((post) =>
+                            (<li key={ post.id }>
+                                    <BasicBlock data={post} withLink={true}/>
+                            </li>)))
+                        : `nothing to see here`}
+                    </ul>
+                </div>}
             </div>
         );
     }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchSinglePost, fetchPostComments } from '../actions'
+import BasicBlock from "../components/BasicBlock";
 
-import * as helpers from "../helpers";
-import { FaQuoteLeft } from 'react-icons/fa';
+import { fetchSinglePost, fetchPostComments } from '../actions'
 
 class Post extends Component {
 
@@ -15,24 +14,15 @@ class Post extends Component {
 
     render() {
         const { post, comments } = this.props;
-        const time = helpers.timeConverter;
 
         return (
             <div className='post-detail'>
-                {post &&
-                <div className='basic-container'>
-                    <h3>{post.title}</h3>
-                    <h4>{post.body}</h4>
-                    <h5>{`(${post.voteScore} votes)`}</h5>
-                    <span className='meta-info'>{`Posted on ${time(post.timestamp).toDateString()} at ${time(post.timestamp).getHours()}:${time(post.timestamp).getMinutes()} by ${post.author}`}</span>
-                </div>}
+                {post && <BasicBlock data={post}/>}
                 {comments &&
                 <ul>
                     {comments.map((comment) => (
-                        <li className='basic-container'>
-                            <h4>{comment.body}</h4>
-                            <h5>{`(${comment.voteScore} votes)`}</h5>
-                            <span className='meta-info'>{`Posted on ${time(comment.timestamp).toDateString()} at ${time(comment.timestamp).getHours()}:${time(comment.timestamp).getMinutes()} by ${comment.author}`}</span>
+                        <li>
+                            <BasicBlock data={comment}/>
                         </li>
                     ))}
                 </ul>}
