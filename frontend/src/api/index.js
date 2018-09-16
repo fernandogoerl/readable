@@ -37,8 +37,40 @@ export const getSinglePost = async (id) => {
 
 export const getPostComments = async (id) => {
     const req = new Request(`${api}/posts/${id}/comments`, { headers });
+    const comments = await fetch(req).then(res => res.json())
+    return comments;
+};
+
+export const getSingleComment = async (id) => {
+    const req = new Request(`${api}/comments/${id}`, { headers });
+    const comment = await fetch(req).then(res => res.json())
+    return comment;
+};
+
+export const votePost = async (data) => {
+    const req = new Request(`${api}/posts/${data.id}`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ option: data.option })
+    });
     const post = await fetch(req).then(res => res.json())
     return post;
+};
+
+export const voteComment = async (data) => {
+    const req = new Request(`${api}/comments/${data.id}`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ option: data.option })
+    });
+    const comment = await fetch(req).then(res => res.json())
+    return comment;
 };
 
 // export const update = (book, shelf) =>

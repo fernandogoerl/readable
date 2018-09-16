@@ -5,52 +5,90 @@ import * as types from './types'
 // CATEGORIES ACTIONS
 
 export const loadCategories = (categories) => ({
-        type: types.LOAD_CATEGORIES,
-        categories
-    });
+    type: types.LOAD_CATEGORIES,
+    categories
+});
 
-export const fetchCategories = () => (dispatch) =>
+export const fetchCategories = () => (dispatch) => {
     api.getAllCategories()
-        .then((categories) => dispatch(loadCategories(categories)));
+        .then((categories) => dispatch(loadCategories(categories)))
+};
 
 
 // POSTS ACTIONS
 
 export const loadPosts = (posts) => ({
-        type: types.LOAD_POSTS,
-        posts,
-    });
+    type: types.LOAD_POSTS,
+    posts,
+});
 
-export const fetchAllPosts = () => (dispatch) =>
+export const fetchAllPosts = () => (dispatch) => {
     api.getAllPosts()
-        .then((posts) => dispatch(loadPosts(posts)));
+        .then((posts) => dispatch(loadPosts(posts)))
+};
 
 export const loadCategoryPosts = (posts) => ({
-        type: types.LOAD_CATEGORY_POSTS,
-        posts,
-    });
+    type: types.LOAD_CATEGORY_POSTS,
+    posts,
+});
 
-export const fetchCategoryPosts = (category) => (dispatch) =>
+export const fetchCategoryPosts = (category) => (dispatch) => {
     api.getCategoryPosts(category)
-        .then((posts) => dispatch(loadCategoryPosts(posts)));
+        .then((posts) => dispatch(loadCategoryPosts(posts)))
+};
 
 export const loadSinglePost = (post) => ({
-        type: types.LOAD_SINGLE_POST,
-        post,
-    });
+    type: types.LOAD_SINGLE_POST,
+    post,
+});
 
-export const fetchSinglePost = (id) => (dispatch) =>
+export const fetchSinglePost = (id) => (dispatch) => {
     api.getSinglePost(id)
-        .then((post) => dispatch(loadSinglePost(post)));
+        .then((post) => dispatch(loadSinglePost(post)))
+};
 
-        
+
 // COMMENTS ACTIONS
 
 export const loadPostComments = (comments) => ({
-        type: types.LOAD_POST_COMMENTS,
-        comments,
-    });
+    type: types.LOAD_POST_COMMENTS,
+    comments,
+});
 
-export const fetchPostComments = (id) => (dispatch) =>
+export const fetchPostComments = (id) => (dispatch) => {
     api.getPostComments(id)
-        .then((comments) => dispatch(loadPostComments(comments)));
+        .then((comments) => dispatch(loadPostComments(comments)))
+};
+
+export const loadSingleComment = (comment) => ({
+    type: types.LOAD_SINGLE_COMMENT,
+    comment,
+});
+
+export const fetchSingleComment = (id) => (dispatch) => {
+    api.getSingleComment(id)
+        .then((comment) => dispatch(loadSingleComment(comment)))
+};
+
+
+// VOTING ACTION
+
+export const votePostSuccessful = (post) => ({
+    type: types.VOTE_POST_SUCCESSFUL,
+    post,
+});
+
+export const sendVotePost = (postData) => (dispatch) => {
+    api.votePost(postData)
+        .then((post) => dispatch(votePostSuccessful(post)))
+};
+
+export const voteCommentSuccessful = (comment) => ({
+    type: types.VOTE_COMMENT_SUCCESSFUL,
+    comment,
+});
+
+export const sendVoteComment = (commentData) => (dispatch) => {
+    api.voteComment(commentData)
+        .then((comment) => dispatch(voteCommentSuccessful(comment)))
+};

@@ -12,8 +12,11 @@ class Header extends Component {
         this.props.fetchCategories();
     };
 
+    manageActive = (currentCategory, category) => ( currentCategory === category ? 'active' : '');
+
     render() {
         const { categories } = this.props;
+
         return (
             <div className='header'>
                 <h1 className='title'>Readable</h1>
@@ -34,7 +37,7 @@ class Header extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		categories: state.categories
+        categories: state.categories
 	};
 };
 

@@ -31,9 +31,14 @@
     display: inline-block;
 }
 
+.comment-count{
+    position: absolute;
+    right: 9rem;
+}
+
 .vote-score{
     position: absolute;
-    right: 3.5rem;
+    right: 3rem;
 }
 
 svg {
@@ -45,7 +50,18 @@ svg {
     vertical-align: middle;
 }
 
-.vote-links svg{
-    font-size: 1.5rem;
+.meta-votes svg{
+    height: 1.5rem;
+    padding: 0 .25rem;
     vertical-align: middle;
+}
+
+.vote-up:hover, .vote-down:hover{
+    cursor: pointer;
+    color: lightgrey;
+}
+
+.meta-edit svg{
+    width: 1.5rem;
+    padding: 0 .5rem;
 }

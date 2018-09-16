@@ -8,7 +8,7 @@ import { order } from "../helpers";
 
 import './Home.css'
 
-import BasicBlock from "../components/BasicBlock";
+import BasicBlock from "../components/PostBlock";
 
 class Home extends Component {
 
@@ -74,6 +74,7 @@ class Home extends Component {
                         : `nothing to see here`}
                     </ul>
                 </div>}
+                <div><Link to={'/add'} ></Link>ADD POST</div>
             </div>
         );
     }

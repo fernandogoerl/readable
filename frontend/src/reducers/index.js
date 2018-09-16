@@ -24,6 +24,7 @@ function posts (state = [], action) {
 function post (state = [], action) {
     switch (action.type) {
         case types.LOAD_SINGLE_POST :
+        case types.VOTE_POST_SUCCESSFUL :
             return action.post;
         default :
             return state;
@@ -39,6 +40,16 @@ function comments (state = [], action) {
     }
 }
 
+function comment (state = [], action) {
+    switch (action.type) {
+        case types.LOAD_SINGLE_COMMENT :
+        case types.VOTE_COMMENT_SUCCESSFUL :
+            return action.comment;
+        default :
+            return state;
+    }
+}
+
 
 
 export default combineReducers({
@@ -46,4 +57,5 @@ export default combineReducers({
     posts,
     post,
     comments,
+    comment,
 });
