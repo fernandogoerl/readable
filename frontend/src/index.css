@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://cdn.muicss.com/mui-0.9.41/css/mui.min.css');
 
 html, body {
     width: 100%;
@@ -48,4 +49,8 @@ li {
 
 .center{
     text-align: center;
+}
+
+.capitalize{
+    text-transform: capitalize;
 }

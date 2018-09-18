@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchAllPosts, fetchCategoryPosts } from '../actions';
-
 import { order } from "../helpers";
+
+import Header from '../components/Header';
+import BasicBlock from "../components/PostBlock";
+import CreatePostButton from "../components/CreatePostButton";
 
 import './Home.css'
 
-import BasicBlock from "../components/PostBlock";
 
 class Home extends Component {
 
@@ -18,15 +20,19 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        if (this.props.match.params.category) {
-            this.props.fetchCategoryPosts(this.props.match.params.category);
+        let currentCategory = this.props.match.params.category;
+        if (currentCategory) {
+            this.props.fetchCategoryPosts(currentCategory);
+            this.setState({currentCategory});
         } else this.props.fetchAllPosts();
 
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.location.pathname !== prevProps.location.pathname) {
-            this.props.fetchCategoryPosts(this.props.match.params.category);
+        let currentCategory = this.props.match.params.category;
+        if (this.props.location.pathname !== prevProps.location.pathname && currentCategory) {
+            this.props.fetchCategoryPosts(currentCategory);
+            this.setState({currentCategory});
         }
         if (this.props.location.search && this.props.location.search !== prevProps.location.search ) {
             let currentOrder = this.props.location.search.substring(7);
@@ -47,23 +53,16 @@ class Home extends Component {
         }
     };
 
-    manageActive = (currentOrder, order) => (currentOrder === order ? 'active' : '')
-
     render() {
-        const { posts, location } = this.props;
+        const { posts, location, match } = this.props;
         const { currentCategory, currentOrder } = this.state;
         let orderedPosts = location.search ? order(posts, location.search) : order(posts, 'voteScore');
+        console.log(currentCategory);
+
 
         return (
             <div>
-                <div className='header header-bar'>
-                    <span className='bold'>{'Order by'}</span>
-                    <ul className='order'>
-                        <li className={this.manageActive(currentOrder, 'voteScore')}><Link to={{ search: '?order=voteScore' }}>{'votes'}</Link></li>
-                        <li className={this.manageActive(currentOrder, 'title')}><Link to={{ search: '?order=title' }}>{'title'}</Link></li>
-                        <li className={this.manageActive(currentOrder, 'timestamp')}><Link to={{ search: '?order=timestamp' }}>{'time'}</Link></li>
-                    </ul>
-                </div>
+                <Header url={{location, match}} current={{category: currentCategory, order:currentOrder}}/>
                 {posts && <div className='home-content'>
                     <h2 className='center'>{`${this.manageOrder(currentOrder)} on /${currentCategory}`}</h2>
                     <ul>{orderedPosts.length > 0
@@ -74,7 +73,7 @@ class Home extends Component {
                         : `nothing to see here`}
                     </ul>
                 </div>}
-                <div><Link to={'/add'} ></Link>ADD POST</div>
+                <CreatePostButton/>
             </div>
         );
     }
@@ -92,4 +91,4 @@ const mapDispatchToProps = (dispatch) => {
         fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

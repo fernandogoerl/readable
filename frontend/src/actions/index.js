@@ -47,6 +47,16 @@ export const fetchSinglePost = (id) => (dispatch) => {
         .then((post) => dispatch(loadSinglePost(post)))
 };
 
+export const createPostSuccessful = (post) => ({
+    type: types.CREATE_POST_SUCCESSFUL,
+    post,
+});
+
+export const createNewPost = (data) => (dispatch) => {
+    api.addNewPost(data)
+        .then((post) => dispatch(createPostSuccessful(post)))
+};
+
 
 // COMMENTS ACTIONS
 

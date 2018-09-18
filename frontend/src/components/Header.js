@@ -10,26 +10,38 @@ class Header extends Component {
 
     componentDidMount() {
         this.props.fetchCategories();
-    };
+    }
 
-    manageActive = (currentCategory, category) => ( currentCategory === category ? 'active' : '');
+    manageOrderActive = (currentOrder, order) => (currentOrder === order ? 'active' : '');
+
+    manageCategoryActive = (currentCategory, category) => ( (currentCategory === category) ? 'active' : '');
 
     render() {
-        const { categories } = this.props;
+        const { categories, url, current } = this.props;
 
         return (
             <div className='header'>
                 <h1 className='title'>Readable</h1>
-                <div className='header-bar'>
-                    <span className='bold'>{'Categories'}</span>
-                    <ul className='categories'>
-                        <li><Link to='/'>All</Link></li>
-                        {categories &&
-                        categories.map((category) => (
-                            <li key={category.name}><Link to={`/${category.name}`}>{category.name}</Link></li>
-                        ))}
-                    </ul>
-                </div>
+                {url &&(url.location.pathname === '/' || url.match.params.category) && <div>
+                    <div className='header-bar'>
+                        <span className='bold'>{'Categories'}</span>
+                        <ul className='categories'>
+                            <li className={this.manageCategoryActive(current.category, 'all')}><Link to='/'>All</Link></li>
+                            {categories &&
+                            categories.map((category) => (
+                                <li key={category.name} className={this.manageCategoryActive(current.category, category.path)}><Link to={`/${category.path}`}>{category.name}</Link></li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className='header-bar'>
+                        <span className='bold'>{'Order by'}</span>
+                        <ul className='order'>
+                            <li className={this.manageOrderActive(current.order, 'voteScore')}><Link to={{ search: '?order=voteScore' }}>{'votes'}</Link></li>
+                            <li className={this.manageOrderActive(current.order, 'title')}><Link to={{ search: '?order=title' }}>{'title'}</Link></li>
+                            <li className={this.manageOrderActive(current.order, 'timestamp')}><Link to={{ search: '?order=timestamp' }}>{'time'}</Link></li>
+                        </ul>
+                    </div>
+                </div>}
             </div>
         );
     };

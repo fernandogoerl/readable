@@ -73,6 +73,31 @@ export const voteComment = async (data) => {
     return comment;
 };
 
+export const addNewPost = async (data) => {
+    const req = new Request(`${api}/posts`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ...data })
+    });
+    const post = await fetch(req).then(res => res.json())
+    return post;
+};
+
+// POST /posts
+//       USAGE:
+//         Add a new post
+
+//       PARAMS:
+//         id - UUID should be fine, but any unique id will work
+//         timestamp - timestamp in whatever format you like, you can use Date.now() if you like
+//         title - String
+//         body - String
+//         author - String
+//         category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
+
 // export const update = (book, shelf) =>
 //     fetch(`${api}/books/${book.id}`, {
 //         method: 'PUT',

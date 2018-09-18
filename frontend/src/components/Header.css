@@ -4,7 +4,7 @@
     width: 100%;
     text-align: center;
     margin: auto;
-    background-color: cornflowerblue;
+    background-color: #2196F3;
     color: white;
 }
 
@@ -32,16 +32,19 @@
 }
 
 .categories li a, .order li a{
-    text-transform: capitalize;
     color: white;
 }
 
 .categories li:hover, .order li:hover{
     font-weight: 500;
-    background-color: dodgerblue;
+    background-color: rgb(28, 120, 196);
 }
 
 .active{
     font-weight: 500;
-    background-color: dodgerblue;
+    background-color: rgb(28, 120, 196);
+}
+
+.order li {
+    text-transform: capitalize;
 }

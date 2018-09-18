@@ -25,6 +25,7 @@ function post (state = [], action) {
     switch (action.type) {
         case types.LOAD_SINGLE_POST :
         case types.VOTE_POST_SUCCESSFUL :
+        case types.CREATE_POST_SUCCESSFUL :
             return action.post;
         default :
             return state;

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
+import Header from "./Header";
 import PostBlock from "./PostBlock";
 import CommentBlock from "./CommentBlock";
 
-import { fetchSinglePost, fetchPostComments, sendVotePost, sendVoteComment } from '../actions'
-
-import { getMetaInfo } from "../helpers";
-
-import { FaThumbsUp, FaThumbsDown, FaAngleUp, FaAngleDown, FaEdit, FaComment } from 'react-icons/fa';
+import { fetchSinglePost, fetchPostComments } from '../actions'
 
 class PostDetail extends Component {
 
@@ -27,6 +25,8 @@ class PostDetail extends Component {
 
         return (
             <div className='post-detail'>
+                <Header/>
+                <Link className='close-create-post' to='/'>Close</Link>
                 {post && <PostBlock data={post}/>}
                 {comments &&
                 <ul>

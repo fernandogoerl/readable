@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 
 import { fetchSingleComment, sendVoteComment } from '../actions'
 import { getMetaInfo } from "../helpers";
@@ -10,17 +11,15 @@ import './BasicBlock.css'
 class CommentBlock extends Component {
 
     componentDidMount() {
-        this.props.fetchSingleComment(this.props.data.id)
+        this.props.fetchSingleComment(this.props.data.id);
     }
 
     sendVote(comment, vote){
         this.props.sendVoteComment(vote);
         (vote.option === 'upVote') ? comment.voteScore++ : comment.voteScore--;
-        console.log(comment);
     }
 
     render() {
-        console.log(this.props);
 
         const { data } = this.props;
 
@@ -66,4 +65,4 @@ const mapDispatchToProps = (dispatch) => {
         sendVoteComment: (id) => dispatch(sendVoteComment(id)),
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(CommentBlock)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CommentBlock))
