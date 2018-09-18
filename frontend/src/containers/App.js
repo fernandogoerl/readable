@@ -20,7 +20,6 @@ export default class App extends Component {
                     <Route exact path='/:category' component={Home} />
                     <Route exact path='/posts/:id' component={PostDetail} />
                 </div>
-                <Footer/>
             </div>
         );
     }

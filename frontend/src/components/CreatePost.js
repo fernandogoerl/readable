@@ -29,7 +29,6 @@ class CreatePost extends Component {
         console.log(data);
         this.props.createNewPost(data);
         this.setState({triggerRedirect: true});
-        // this.setState({triggerRedirect: true});
 
     }
 
