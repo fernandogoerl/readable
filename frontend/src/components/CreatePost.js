@@ -21,7 +21,7 @@ class CreatePost extends Component {
         this.props.fetchCategories();
     }
 
-    handleSubmit = async (e) => {
+    handleSubmit = (e) => {
         e.preventDefault()
         const id = uuid();
         const timestamp = Date.now();

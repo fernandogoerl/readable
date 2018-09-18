@@ -6,7 +6,7 @@ import { fetchAllPosts, fetchCategoryPosts } from '../actions';
 import { order } from "../helpers";
 
 import Header from '../components/Header';
-import BasicBlock from "../components/PostBlock";
+import PostBlock from "../components/PostBlock";
 import CreatePostButton from "../components/CreatePostButton";
 
 import './Home.css'
@@ -68,7 +68,7 @@ class Home extends Component {
                     <ul>{orderedPosts.length > 0
                         ? (orderedPosts.map((post) =>
                             (<li key={ post.id }>
-                                    <BasicBlock data={post} withLink={true}/>
+                                    <PostBlock data={post} withLink={true}/>
                             </li>)))
                         : `nothing to see here`}
                     </ul>

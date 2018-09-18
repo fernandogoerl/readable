@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import { fetchSingleComment, sendVotePost, sendVoteComment } from '../actions'
 import { getMetaInfo } from "../helpers";
 
-import { FaThumbsUp, FaThumbsDown, FaAngleUp, FaAngleDown, FaEdit, FaComment } from 'react-icons/fa';
+import { FaThumbsUp, FaThumbsDown, FaEdit, FaComment, FaTrash } from 'react-icons/fa';
 import './BasicBlock.css'
 
 class PostBlock extends Component {
+
+    deletePost = () => {console.log('trying to delete the post');}
 
     render() {
         const { data, withLink, sendVotePost  } = this.props;
@@ -18,7 +20,7 @@ class PostBlock extends Component {
         return (
             <div className='basic-block'>
                 <div className='basic-container'>
-                    {data.title && withLink
+                    {withLink
                         ? <Link to={`/posts/${data.id}`}>
                             <h3>{data.title}</h3>
                         </Link>
@@ -27,43 +29,30 @@ class PostBlock extends Component {
                     <h4>{data.body}</h4>
                 </div>
                 <div className='meta-info'>
-                    <div>
-                        {getMetaInfo(data)}
-                    </div>
+                    <Link to='#'><button className='meta-icons'> <FaEdit/> </button></Link>
+                    <button className='meta-icons' onClick={() => this.deletePost()}> <FaTrash/> </button>
 
                     {data.title &&
-                        <div className='comment-count'> {` ${data.commentCount} `} <FaComment/> </div>
+                        <div className='meta-icons'> {` ${data.commentCount} `} <FaComment/> </div>
                     }
-                    <div className='vote-score'>
+                    <div className='meta-icons'>
+                        <button className='thumb-down' onClick={(e) => sendVotePost(downVote)}> <FaThumbsDown/> </button>
                         {` ${data.voteScore} `}
-                        {data.voteScore < 0
-                            ? <div className='thumb-down'> <FaThumbsDown/> </div>
-                            : <div className='thumb-up'>  <FaThumbsUp/> </div>
-                        }
-                        <div className='meta-votes'>
-                            <div className='vote-up' onClick={() => sendVotePost(upVote)}><FaAngleUp/></div>
-                            <div className='vote-down' onClick={() => sendVotePost(downVote)}><FaAngleDown/></div>
-                        </div>
+                        <button className='thumb-up' onClick={(e) => sendVotePost(upVote)}> <FaThumbsUp/> </button>
                     </div>
-                    <div className='meta-edit'> <FaEdit/> </div>
+                    <div className='meta-info-data'>
+                        {getMetaInfo(data)}
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        post: state.post,
-        comment: state.comment,
-    }
-}
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSingleComment: (id) => dispatch(fetchSingleComment(id)),
         sendVotePost: (id) => dispatch(sendVotePost(id)),
         sendVoteComment: (id) => dispatch(sendVoteComment(id)),
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PostBlock)
+export default connect(null, mapDispatchToProps)(PostBlock)
