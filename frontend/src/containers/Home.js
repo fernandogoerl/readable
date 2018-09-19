@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchAllPosts, fetchCategoryPosts } from '../actions';
-import { order } from "../helpers";
+import { orderPosts } from '../helpers';
 
 import Header from '../components/Header';
-import PostBlock from "../components/PostBlock";
-import CreatePostButton from "../components/CreatePostButton";
+import PostBlock from '../components/PostBlock';
+import CreatePostButton from '../components/CreatePostButton';
 
 import './Home.css'
 
@@ -61,9 +61,9 @@ class Home extends Component {
     }
 
     render() {
-        const { posts, location, match } = this.props;
+        const { posts, location, match, modal } = this.props;
         const { currentCategory, currentOrder } = this.state;
-        let orderedPosts = location.search ? order(posts, location.search) : order(posts, 'voteScore');
+        let orderedPosts = location.search ? orderPosts(posts, location.search) : orderPosts(posts, 'voteScore');
 
         return (
             <div>
@@ -73,7 +73,7 @@ class Home extends Component {
                     <ul>{orderedPosts.length > 0
                         ? (orderedPosts.map((post) =>
                             (<li key={ post.id }>
-                                    <PostBlock data={post} withLink={true} refresh={this.refresh}/>
+                                    <PostBlock data={post} withLink={true} refresh={this.refresh} modal={modal}/>
                             </li>)))
                         : `nothing to see here`}
                     </ul>

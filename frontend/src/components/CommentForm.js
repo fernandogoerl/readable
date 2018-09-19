@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 
-import { createNewComment } from "../actions";
+import { createNewComment } from '../actions';
 
 import uuid from 'uuid';
 import serializeForm from 'form-serialize';
-import { Form, Input, Textarea, Button } from "muicss/react";
+import { Form, Input, Textarea, Button } from 'muicss/react';
 
 import './CommentForm.css'
 
@@ -17,7 +17,8 @@ class CommentForm extends Component {
         e.preventDefault()
         const id = uuid();
         const timestamp = Date.now();
-        const data = { id, timestamp, ...serializeForm(e.target, {hash: true}), parentId: this.props.parent.id };
+        const parentId = this.props.parent.id;
+        const data = { id, timestamp, parentId, ...serializeForm(e.target, {hash: true}) };
         this.props.createNewComment(data);
         this.props.refresh();
         e.target.reset();
@@ -31,7 +32,7 @@ class CommentForm extends Component {
                 <Form onSubmit={this.handleSubmit} className='create-post-form'>
                     <Textarea name='body' placeholder='Comment' />
                     <Input name='author' placeholder='Author' />
-                    <Button color="primary">Add comment</Button>
+                    <Button color='primary'>Add comment</Button>
                 </Form>
             </div>
         );

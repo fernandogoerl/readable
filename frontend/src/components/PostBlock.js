@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { sendVotePost, deletePost } from '../actions'
-import { getMetaInfo } from "../helpers";
+import { getMetaInfo } from '../helpers';
+
 
 import { FaThumbsUp, FaThumbsDown, FaEdit, FaComment, FaTrash } from 'react-icons/fa';
 import './BasicBlock.css'
 
 class PostBlock extends Component {
+
 
     deleteClick = (id) => {this.props.deletePost(id);}
 
@@ -24,7 +26,7 @@ class PostBlock extends Component {
     }
 
     render() {
-        const { data, withLink  } = this.props;
+        const { data, withLink, modal  } = this.props;
 
         const upVote = {id: data.id, option: 'upVote' };
         const downVote = {id: data.id, option: 'downVote' };
@@ -40,7 +42,7 @@ class PostBlock extends Component {
                     <h4>{data.body}</h4>
                 </div>
                 <div className='meta-info'>
-                    <Link to='#'><button className='meta-icons'> <FaEdit/> </button></Link>
+                    <button className='meta-icons' onClick={() => modal.openEditModal(data)}> <FaEdit/> </button>
                     <button className='meta-icons' onClick={() => this.confirmDelete(data.id)}> <FaTrash/> </button>
 
                     {data.title &&

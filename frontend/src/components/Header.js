@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchCategories } from '../actions'
@@ -22,7 +22,7 @@ class Header extends Component {
         return (
             <div className='header'>
                 <h1 className='title'>Readable</h1>
-                {url &&(url.location.pathname === '/' || url.match.params.category) && <div>
+                {url && (url.location.pathname === '/' || url.match.params.category) &&
                     <div className='header-bar'>
                         <span className='bold'>{'Categories'}</span>
                         <ul className='categories'>
@@ -33,6 +33,8 @@ class Header extends Component {
                             ))}
                         </ul>
                     </div>
+                }
+                {url && (url.location.pathname === '/' || url.match.params.category) &&
                     <div className='header-bar'>
                         <span className='bold'>{'Order by'}</span>
                         <ul className='order'>
@@ -41,7 +43,7 @@ class Header extends Component {
                             <li className={this.manageOrderActive(current.order, 'timestamp')}><Link to={{ search: '?order=timestamp' }}>{'time'}</Link></li>
                         </ul>
                     </div>
-                </div>}
+                }
             </div>
         );
     };

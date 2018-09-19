@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom'
 
 import { sendVoteComment, deleteComment } from '../actions'
-import { getMetaInfo } from "../helpers";
+import { getMetaInfo } from '../helpers';
 
 import { FaThumbsUp, FaThumbsDown, FaEdit, FaTrash } from 'react-icons/fa';
 import './BasicBlock.css'
@@ -13,10 +13,11 @@ class CommentBlock extends Component {
     sendVote = (comment, vote) => {
         this.props.sendVoteComment(vote);
         this.props.refresh();
+        
     }
 
     confirmDelete = (id) => {
-        if (window.confirm("You are about to delete this comment!")) {
+        if (window.confirm('You are about to delete this comment!')) {
             this.props.deleteComment(id);
             this.props.refresh();
         }

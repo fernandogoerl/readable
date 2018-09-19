@@ -1,22 +1,26 @@
-const compare = (post1, post2, orderBy) => {
+const compare = (data1, data2, orderBy) => {
     switch(orderBy) {
         case 'author' :
         case 'title' :
         case 'timestamp' :
-            if(post1[orderBy] < post2[orderBy]) { return -1; }
-            else if(post1[orderBy] > post2[orderBy]) { return 1; }
-            else { return post2.voteScore - post1.voteScore; }
+            if(data1[orderBy] < data2[orderBy]) { return -1; }
+            else if(data1[orderBy] > data2[orderBy]) { return 1; }
+            else { return data2.voteScore - data1.voteScore; }
         default :
-            return post2.voteScore - post1.voteScore;
+            return data2.voteScore - data1.voteScore;
 
     }
 };
 
 const parseOrder = (str) => (str.substring(7));
 
-export const order = (posts, orderBy) =>
+export const orderPosts = (posts, orderBy) =>
     (posts.sort((post1, post2) =>
         compare(post1, post2, parseOrder(orderBy))));
+
+export const orderComments = (comments, orderBy) =>
+    (comments.sort((comment1, comment2) =>
+        compare(comment1, comment2, orderBy)));
 
 const timeConverter = (timestamp) => (new Date(timestamp));
 

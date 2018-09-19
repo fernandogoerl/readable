@@ -1,12 +1,9 @@
-.close-create-post {
+.close-create-post svg {
+    padding: 1rem;
     display: block;
-    width: 60px;
-    height: 60px;
-    background-image: url('../icons/arrow-back.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 30px;
-    font-size: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    color: #272727;
 }
 
 .create-post-form {
@@ -24,16 +21,17 @@
     z-index: 100;
 }
 
-.open-search a {
+.open-search svg{
+    color: white;
+    padding: 1rem;
     display: block;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     background: #2196F3;
-    background-image: url('../icons/add.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 2.5rem;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    font-size: 0;
+}
+
+.open-search svg:hover{
+    color: lightgrey;
 }

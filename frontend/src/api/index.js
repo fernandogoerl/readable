@@ -100,6 +100,7 @@ export const addNewComment = async (data) => {
         method: 'POST',
         headers: {
             ...headers,
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({ ...data })
     });
