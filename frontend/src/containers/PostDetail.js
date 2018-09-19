@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
-
-import Header from "./Header";
-import PostBlock from "./PostBlock";
-import CommentBlock from "./CommentBlock";
-import CommentForm from "./CommentForm";
+import { Link } from 'react-router-dom';
 
 import { fetchSinglePost, fetchPostComments } from '../actions'
+import { orderComments } from '../helpers'
+
+import Header from '../components/Header';
+import PostBlock from '../components/PostBlock';
+import CommentBlock from '../components/CommentBlock';
+import CommentForm from '../components/CommentForm';
+
+import { FaArrowLeft } from 'react-icons/fa'
 
 class PostDetail extends Component {
 
@@ -23,16 +26,18 @@ class PostDetail extends Component {
 
 
     render() {
-        const { post, comments } = this.props;
+        const { post, comments, location, match, } = this.props;
+
+        const orderedComments = orderComments(comments)
 
         return (
             <div className='post-detail'>
-                <Header/>
-                <Link className='close-create-post' to='/'>Close</Link>
+                <Header url={{location, match}} />
+                <Link className='close-create-post' to='/'><FaArrowLeft/></Link>
                 <PostBlock data={post}/>
-                {comments &&
+                {orderedComments &&
                 <ul>
-                    {comments.map((comment) => (
+                    {orderedComments.map((comment) => (
                         <li key={comment.id}>
                             <CommentBlock data={comment} refresh={this.refresh}/>
                             {/* <div className='basic-block'>
