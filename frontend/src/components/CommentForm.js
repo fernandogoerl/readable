@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 
@@ -14,26 +13,18 @@ import './CommentForm.css'
 
 class CommentForm extends Component {
 
-    state = {
-        triggerRedirect: false,
-    }
-
     handleSubmit = (e) => {
         e.preventDefault()
         const id = uuid();
         const timestamp = Date.now();
         const data = { id, timestamp, ...serializeForm(e.target, {hash: true}), parentId: this.props.parent.id };
-        console.log(data);
         this.props.createNewComment(data);
-        this.setState({triggerRedirect: true});
         this.props.refresh();
         e.target.reset();
 
     }
 
     render() {
-        const { parent, refresh } = this.props;
-        const { triggerRedirect } = this.state;
         return (
             <div className='comment-form'>
                 <h3 className='center'>Add a comment</h3>

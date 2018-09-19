@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchAllPosts, fetchCategoryPosts } from '../actions';
@@ -55,7 +54,7 @@ class Home extends Component {
 
     refresh = () => {
         console.log('This page will reload');
-        
+
         let currentCategory = this.props.match.params.category;
         if (currentCategory) {
             this.props.fetchCategoryPosts(currentCategory);

@@ -17,7 +17,7 @@ function posts (state = [], action) {
         case types.LOAD_CATEGORY_POSTS :
             return action.posts;
         default :
-            return state;
+        return state;
     }
 }
 
@@ -26,6 +26,8 @@ function post (state = [], action) {
         case types.LOAD_SINGLE_POST :
         case types.VOTE_POST_SUCCESSFUL :
         case types.CREATE_POST_SUCCESSFUL :
+            return action.post;
+        case types.DELETE_POST_SUCCESSFUL :
             return action.post;
         default :
             return state;
@@ -36,6 +38,8 @@ function comments (state = [], action) {
     switch (action.type) {
         case types.LOAD_POST_COMMENTS :
             return action.comments;
+        case types.DELETE_COMMENT_SUCCESSFUL :
+            return state.filter((comment) => comment.id !== action.id);
         default :
             return state;
     }

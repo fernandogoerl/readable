@@ -92,7 +92,7 @@ export const createNewComment = (data) => (dispatch) => {
 };
 
 
-// VOTING ACTION
+// VOTING ACTIONS
 
 export const votePostSuccessful = (post) => ({
     type: types.VOTE_POST_SUCCESSFUL,
@@ -112,7 +112,30 @@ export const voteCommentSuccessful = (comment) => ({
 
 export const sendVoteComment = (commentData) => (dispatch) => {
     api.voteComment(commentData)
-        .then((comment) => dispatch(voteCommentSuccessful(comment)))
-        // .then((comment) => dispatch(fetchSingleComment(comment)))
+        .then((comment) => dispatch(voteCommentSuccessful(comment)));
 
+};
+
+
+// DELETE ACTIONS
+
+export const deletePostSuccessful = (post) => ({
+    type: types.DELETE_POST_SUCCESSFUL,
+    post,
+});
+
+export const deletePost = (id) => (dispatch) => {
+    api.disablePost(id)
+        .then((post) => dispatch(deletePostSuccessful(post)))
+        .then(() => dispatch(fetchAllPosts()));
+};
+
+export const deleteCommentSuccessful = (comment) => ({
+    type: types.DELETE_COMMENT_SUCCESSFUL,
+    comment,
+});
+
+export const deleteComment = (id) => (dispatch) => {
+    api.disableComment(id)
+        .then((comment) => dispatch(deleteCommentSuccessful(comment)));
 };

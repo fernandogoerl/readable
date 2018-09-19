@@ -16,8 +16,7 @@ class PostDetail extends Component {
         this.props.fetchPostComments(this.props.match.params.id);
     }
 
-    refresh = async () => {
-        // console.log('This page will reload');
+    refresh = () => {
         this.props.fetchSinglePost(this.props.match.params.id);
         setTimeout(() => {this.props.fetchPostComments(this.props.match.params.id)}, 50);
     }
@@ -30,7 +29,7 @@ class PostDetail extends Component {
             <div className='post-detail'>
                 <Header/>
                 <Link className='close-create-post' to='/'>Close</Link>
-                <PostBlock data={post} refresh={this.refresh}/>
+                <PostBlock data={post}/>
                 {comments &&
                 <ul>
                     {comments.map((comment) => (

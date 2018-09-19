@@ -10,6 +10,9 @@ const headers = {
     'Authorization' : token,
 }
 
+
+//FETCH
+
 export const getAllCategories = async () => {
     const req = new Request(`${api}/categories`, { headers });
     const res = await fetch(req);
@@ -47,6 +50,9 @@ export const getSingleComment = async (id) => {
     return comment;
 };
 
+
+//VOTE
+
 export const votePost = async (data) => {
     const req = new Request(`${api}/posts/${data.id}`, {
         method: 'POST',
@@ -73,6 +79,9 @@ export const voteComment = async (data) => {
     return comment;
 };
 
+
+//CREATE
+
 export const addNewPost = async (data) => {
     const req = new Request(`${api}/posts`, {
         method: 'POST',
@@ -91,10 +100,38 @@ export const addNewComment = async (data) => {
         method: 'POST',
         headers: {
             ...headers,
-            "Content-Type": "application/json"
         },
         body: JSON.stringify({ ...data })
     });
     const comment = await fetch(req).then(res => res.json())
+    return comment;
+};
+
+
+//DELETE
+
+export const disablePost = async (id) => {
+    const req = new Request(`${api}/posts/${id}`, {
+        method: "DELETE",
+        headers: {
+        ...headers,
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify(id)
+    });
+    const post = await fetch(req).then(res => res.json());
+    return post;
+};
+
+export const disableComment = async (id) => {
+    const req = new Request(`${api}/comments/${id}`, {
+        method: "DELETE",
+        headers: {
+        ...headers,
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify(id)
+    });
+    const comment = await fetch(req).then(res => res.json());
     return comment;
 };

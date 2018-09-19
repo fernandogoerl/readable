@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { sendVotePost, sendVoteComment } from '../actions'
+import { sendVotePost, deletePost } from '../actions'
 import { getMetaInfo } from "../helpers";
 
 import { FaThumbsUp, FaThumbsDown, FaEdit, FaComment, FaTrash } from 'react-icons/fa';
@@ -10,15 +10,22 @@ import './BasicBlock.css'
 
 class PostBlock extends Component {
 
-    deletePost = () => {console.log('trying to delete the post');}
+    deleteClick = (id) => {this.props.deletePost(id);}
 
     sendVote = (vote) => {
         this.props.sendVotePost(vote);
-        // this.props.refresh();
     }
 
+    confirmDelete = (id) => {
+        if (window.confirm(`You are about to delete the post!`)) {
+            this.props.deletePost(id);
+            this.props.refresh();
+        }
+    }
+
+
     render() {
-        const { data, withLink, sendVotePost  } = this.props;
+        const { data, withLink  } = this.props;
 
         const upVote = {id: data.id, option: 'upVote' };
         const downVote = {id: data.id, option: 'downVote' };
@@ -35,7 +42,7 @@ class PostBlock extends Component {
                 </div>
                 <div className='meta-info'>
                     <Link to='#'><button className='meta-icons'> <FaEdit/> </button></Link>
-                    <button className='meta-icons' onClick={() => this.deletePost()}> <FaTrash/> </button>
+                    <button className='meta-icons' onClick={() => this.confirmDelete(data.id)}> <FaTrash/> </button>
 
                     {data.title &&
                         <div className='meta-icons'> {` ${data.commentCount} `} <FaComment/> </div>
@@ -57,7 +64,7 @@ class PostBlock extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         sendVotePost: (id) => dispatch(sendVotePost(id)),
-        sendVoteComment: (id) => dispatch(sendVoteComment(id)),
+        deletePost: (id) => dispatch(deletePost(id)),
     }
 }
 export default connect(null, mapDispatchToProps)(PostBlock)

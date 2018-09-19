@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Home from './Home';
-import Footer from '../components/Footer';
 import CreatePost from '../components/CreatePost';
 import PostDetail from '../components/PostDetail';
 

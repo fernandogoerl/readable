@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom'
 
-import { fetchSingleComment, sendVoteComment } from '../actions'
+import { sendVoteComment, deleteComment } from '../actions'
 import { getMetaInfo } from "../helpers";
 
 import { FaThumbsUp, FaThumbsDown, FaEdit, FaTrash } from 'react-icons/fa';
@@ -10,19 +10,17 @@ import './BasicBlock.css'
 
 class CommentBlock extends Component {
 
-    // componentDidMount() {
-    //     this.props.fetchSingleComment(this.props.data.id);
-    // }
-
-    sendVote = async (comment, vote) => {
+    sendVote = (comment, vote) => {
         this.props.sendVoteComment(vote);
-        // // (vote.option === 'upVote') ? comment.voteScore++ : comment.voteScore--;
         this.props.refresh();
-        // let ready = (await this.props.sendVoteComment(vote)) ? true : false;
-        // if(ready) this.props.refresh();
     }
 
-    deleteComment = () => {console.log('trying to delete the comment');}
+    confirmDelete = (id) => {
+        if (window.confirm("You are about to delete this comment!")) {
+            this.props.deleteComment(id);
+            this.props.refresh();
+        }
+    }
 
     render() {
 
@@ -38,7 +36,7 @@ class CommentBlock extends Component {
                 </div>
                 <div className='meta-info'>
                     <Link to='#'><button className='meta-icons'> <FaEdit/> </button></Link>
-                    <button className='meta-icons' onClick={() => this.deleteComment()}> <FaTrash/> </button>
+                    <button className='meta-icons' onClick={() => this.confirmDelete(data.id)}> <FaTrash/> </button>
                     <div className='meta-icons'>
                         <button className='thumb-down' onClick={(e) => this.sendVote(data, downVote)}> <FaThumbsDown/> </button>
                         {` ${data.voteScore} `}
@@ -61,8 +59,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSingleComment: (id) => dispatch(fetchSingleComment(id)),
         sendVoteComment: (id) => dispatch(sendVoteComment(id)),
+        deleteComment: (id) => dispatch(deleteComment(id)),
     }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CommentBlock))
