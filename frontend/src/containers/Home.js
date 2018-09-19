@@ -53,8 +53,6 @@ class Home extends Component {
     };
 
     refresh = () => {
-        console.log('This page will reload');
-
         let currentCategory = this.props.match.params.category;
         if (currentCategory) {
             this.props.fetchCategoryPosts(currentCategory);
@@ -66,8 +64,6 @@ class Home extends Component {
         const { posts, location, match } = this.props;
         const { currentCategory, currentOrder } = this.state;
         let orderedPosts = location.search ? order(posts, location.search) : order(posts, 'voteScore');
-        console.log(currentCategory);
-
 
         return (
             <div>

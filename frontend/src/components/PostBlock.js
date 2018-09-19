@@ -23,7 +23,6 @@ class PostBlock extends Component {
         }
     }
 
-
     render() {
         const { data, withLink  } = this.props;
 
