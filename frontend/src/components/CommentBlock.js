@@ -10,13 +10,16 @@ import './BasicBlock.css'
 
 class CommentBlock extends Component {
 
-    componentDidMount() {
-        this.props.fetchSingleComment(this.props.data.id);
-    }
+    // componentDidMount() {
+    //     this.props.fetchSingleComment(this.props.data.id);
+    // }
 
-    sendVote = (comment, vote) => {
+    sendVote = async (comment, vote) => {
         this.props.sendVoteComment(vote);
-        (vote.option === 'upVote') ? comment.voteScore++ : comment.voteScore--;
+        // // (vote.option === 'upVote') ? comment.voteScore++ : comment.voteScore--;
+        this.props.refresh();
+        // let ready = (await this.props.sendVoteComment(vote)) ? true : false;
+        // if(ready) this.props.refresh();
     }
 
     deleteComment = () => {console.log('trying to delete the comment');}

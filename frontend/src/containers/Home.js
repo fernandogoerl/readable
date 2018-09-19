@@ -53,6 +53,16 @@ class Home extends Component {
         }
     };
 
+    refresh = () => {
+        console.log('This page will reload');
+        
+        let currentCategory = this.props.match.params.category;
+        if (currentCategory) {
+            this.props.fetchCategoryPosts(currentCategory);
+            this.setState({currentCategory});
+        } else this.props.fetchAllPosts();
+    }
+
     render() {
         const { posts, location, match } = this.props;
         const { currentCategory, currentOrder } = this.state;
@@ -68,7 +78,7 @@ class Home extends Component {
                     <ul>{orderedPosts.length > 0
                         ? (orderedPosts.map((post) =>
                             (<li key={ post.id }>
-                                    <PostBlock data={post} withLink={true}/>
+                                    <PostBlock data={post} withLink={true} refresh={this.refresh}/>
                             </li>)))
                         : `nothing to see here`}
                     </ul>

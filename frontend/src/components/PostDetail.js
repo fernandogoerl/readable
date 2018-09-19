@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Header from "./Header";
 import PostBlock from "./PostBlock";
 import CommentBlock from "./CommentBlock";
+import CommentForm from "./CommentForm";
 
 import { fetchSinglePost, fetchPostComments } from '../actions'
 
@@ -15,8 +16,10 @@ class PostDetail extends Component {
         this.props.fetchPostComments(this.props.match.params.id);
     }
 
-    updateComments() {
-        this.props.fetchPostComments(this.props.match.params.id);
+    refresh = async () => {
+        // console.log('This page will reload');
+        this.props.fetchSinglePost(this.props.match.params.id);
+        setTimeout(() => {this.props.fetchPostComments(this.props.match.params.id)}, 50);
     }
 
 
@@ -27,12 +30,12 @@ class PostDetail extends Component {
             <div className='post-detail'>
                 <Header/>
                 <Link className='close-create-post' to='/'>Close</Link>
-                {post && <PostBlock data={post}/>}
+                <PostBlock data={post} refresh={this.refresh}/>
                 {comments &&
                 <ul>
                     {comments.map((comment) => (
                         <li key={comment.id}>
-                            <CommentBlock data={comment} updateComments={this.updadeComments}/>
+                            <CommentBlock data={comment} refresh={this.refresh}/>
                             {/* <div className='basic-block'>
                                 <div className='basic-container'>
                                     <h4>{comment.body}</h4>
@@ -58,6 +61,7 @@ class PostDetail extends Component {
                         </li>
                     ))}
                 </ul>}
+                <CommentForm parent={post} refresh={this.refresh}/>
             </div>
         );
     };

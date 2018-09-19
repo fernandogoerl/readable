@@ -45,6 +45,7 @@ function comment (state = [], action) {
     switch (action.type) {
         case types.LOAD_SINGLE_COMMENT :
         case types.VOTE_COMMENT_SUCCESSFUL :
+        case types.CREATE_COMMENT_SUCCESSFUL :
             return action.comment;
         default :
             return state;

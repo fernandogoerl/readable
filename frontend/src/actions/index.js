@@ -55,6 +55,7 @@ export const createPostSuccessful = (post) => ({
 export const createNewPost = (data) => (dispatch) => {
     api.addNewPost(data)
         .then((post) => dispatch(createPostSuccessful(post)))
+        .then(() => dispatch(fetchAllPosts()));
 };
 
 
@@ -80,6 +81,16 @@ export const fetchSingleComment = (id) => (dispatch) => {
         .then((comment) => dispatch(loadSingleComment(comment)))
 };
 
+export const createCommentSuccessful = (comment) => ({
+    type: types.CREATE_COMMENT_SUCCESSFUL,
+    comment,
+});
+
+export const createNewComment = (data) => (dispatch) => {
+    api.addNewComment(data)
+        .then((post) => dispatch(createCommentSuccessful(post)))
+};
+
 
 // VOTING ACTION
 
@@ -91,6 +102,7 @@ export const votePostSuccessful = (post) => ({
 export const sendVotePost = (postData) => (dispatch) => {
     api.votePost(postData)
         .then((post) => dispatch(votePostSuccessful(post)))
+        .then(() => dispatch(fetchAllPosts()));
 };
 
 export const voteCommentSuccessful = (comment) => ({
@@ -101,4 +113,6 @@ export const voteCommentSuccessful = (comment) => ({
 export const sendVoteComment = (commentData) => (dispatch) => {
     api.voteComment(commentData)
         .then((comment) => dispatch(voteCommentSuccessful(comment)))
+        // .then((comment) => dispatch(fetchSingleComment(comment)))
+
 };

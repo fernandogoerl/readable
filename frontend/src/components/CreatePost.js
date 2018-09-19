@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-
 import { connect } from "react-redux";
 
 import { fetchCategories, createNewPost } from "../actions";
@@ -8,7 +7,7 @@ import Header from "../components/Header";
 
 import uuid from 'uuid';
 import serializeForm from 'form-serialize';
-import { Appbar, Form, Input, Textarea, Select, Option, Button } from "muicss/react";
+import { Form, Input, Textarea, Select, Option, Button } from "muicss/react";
 
 import './CreatePost.css';
 
@@ -17,12 +16,13 @@ class CreatePost extends Component {
     state = {
         triggerRedirect: false,
     }
+
     componentDidMount() {
         this.props.fetchCategories();
     }
 
     handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const id = uuid();
         const timestamp = Date.now();
         const data = { id, timestamp, ...serializeForm(e.target, {hash: true}), };

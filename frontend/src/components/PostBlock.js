@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchSingleComment, sendVotePost, sendVoteComment } from '../actions'
+import { sendVotePost, sendVoteComment } from '../actions'
 import { getMetaInfo } from "../helpers";
 
 import { FaThumbsUp, FaThumbsDown, FaEdit, FaComment, FaTrash } from 'react-icons/fa';
@@ -11,6 +11,11 @@ import './BasicBlock.css'
 class PostBlock extends Component {
 
     deletePost = () => {console.log('trying to delete the post');}
+
+    sendVote = (vote) => {
+        this.props.sendVotePost(vote);
+        // this.props.refresh();
+    }
 
     render() {
         const { data, withLink, sendVotePost  } = this.props;
@@ -36,9 +41,9 @@ class PostBlock extends Component {
                         <div className='meta-icons'> {` ${data.commentCount} `} <FaComment/> </div>
                     }
                     <div className='meta-icons'>
-                        <button className='thumb-down' onClick={(e) => sendVotePost(downVote)}> <FaThumbsDown/> </button>
+                        <button className='thumb-down' onClick={() => this.sendVote(downVote)}> <FaThumbsDown/> </button>
                         {` ${data.voteScore} `}
-                        <button className='thumb-up' onClick={(e) => sendVotePost(upVote)}> <FaThumbsUp/> </button>
+                        <button className='thumb-up' onClick={() => this.sendVote(upVote)}> <FaThumbsUp/> </button>
                     </div>
                     <div className='meta-info-data'>
                         {getMetaInfo(data)}
