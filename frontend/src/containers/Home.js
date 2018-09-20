@@ -61,22 +61,23 @@ class Home extends Component {
     }
 
     render() {
-        const { posts, location, match, modal } = this.props;
+        const { posts, location, match, openModal } = this.props;
         const { currentCategory, currentOrder } = this.state;
         let orderedPosts = location.search ? orderPosts(posts, location.search) : orderPosts(posts, 'voteScore');
 
         return (
             <div>
                 <Header url={{location, match}} current={{category: currentCategory, order:currentOrder}}/>
-                {posts && <div className='home-content'>
-                    <h2 className='center'>{`${this.manageOrder(currentOrder)} on /${currentCategory}`}</h2>
-                    <ul>{orderedPosts.length > 0
-                        ? (orderedPosts.map((post) =>
+                {orderedPosts && <div className='home-content'>
+                    <h2 className='center'>{`${this.manageOrder(currentOrder)} at /${currentCategory}`}</h2>
+                    {orderedPosts.length > 0
+                        ? <ul> {(orderedPosts.map((post) =>
                             (<li key={ post.id }>
-                                    <PostBlock data={post} withLink={true} refresh={this.refresh} modal={modal}/>
+                                    <PostBlock data={post} withLink={true} refresh={this.refresh} openModal={openModal}/>
                             </li>)))
-                        : `nothing to see here`}
-                    </ul>
+                        }</ul>
+                        : <h3 className='error-404'>{`404: No posts in this category`}</h3>
+                    }
                 </div>}
                 <CreatePostButton/>
             </div>

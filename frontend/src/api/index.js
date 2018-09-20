@@ -136,3 +136,32 @@ export const disableComment = async (id) => {
     const comment = await fetch(req).then(res => res.json());
     return comment;
 };
+
+
+//EDIT
+
+export const editPost = async (data) => {
+    const req = new Request(`${api}/posts/${data.id}`, {
+        method: 'PUT',
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ title: data.title, body: data.body })
+    });
+    const post = await fetch(req).then(res => res.json())
+    return post;
+};
+
+export const editComment = async (data) => {
+    const req = new Request(`${api}/comments/${data.id}`, {
+        method: 'PUT',
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ body: data.body, timestamp: data.timestamp })
+    });
+    const comment = await fetch(req).then(res => res.json())
+    return comment;
+};

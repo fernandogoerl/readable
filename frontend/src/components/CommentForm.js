@@ -6,7 +6,7 @@ import { createNewComment } from '../actions';
 
 import uuid from 'uuid';
 import serializeForm from 'form-serialize';
-import { Form, Input, Textarea, Button } from 'muicss/react';
+import { Form, Input, Button } from 'muicss/react';
 
 import './CommentForm.css'
 
@@ -30,8 +30,8 @@ class CommentForm extends Component {
             <div className='comment-form'>
                 <h3 className='center'>Add a comment</h3>
                 <Form onSubmit={this.handleSubmit} className='create-post-form'>
-                    <Textarea name='body' placeholder='Comment' />
-                    <Input name='author' placeholder='Author' />
+                    <Input name='body' floatingLabel={true}  label='Comment' />
+                    <Input name='author' floatingLabel={true}  label='Author' />
                     <Button color='primary'>Add comment</Button>
                 </Form>
             </div>

@@ -7,7 +7,7 @@ import Header from '../components/Header';
 
 import uuid from 'uuid';
 import serializeForm from 'form-serialize';
-import { Form, Input, Textarea, Select, Option, Button } from 'muicss/react';
+import { Form, Input, Select, Option, Button } from 'muicss/react';
 import { FaArrowLeft } from 'react-icons/fa';
 
 import './CreatePost.css';
@@ -42,16 +42,16 @@ class CreatePost extends Component {
                 <Link className='close-create-post' to='/'><FaArrowLeft/></Link>
                 <h2 className='center'>Create new Post</h2>
                 <Form onSubmit={this.handleSubmit} className='create-post-form'>
-                    <Input name='title' placeholder='Title' />
-                    <Textarea name='body' placeholder='Body' />
-                    <Input name='author' placeholder='Author' />
+                    <Input name='title' autoFocus={true} floatingLabel={true} label='Title'/>
+                    <Input name='body' floatingLabel={true}  label='Content' />
+                    <Input name='author' floatingLabel={true}  label='Author' />
                     <Select defaultValue='none' name='category'>
                         <Option key={uuid()} value='none' disabled label='Select a category' />
                         {categories && categories.map((category) => (
                             <Option key={uuid()} value={category.path} label={category.name} />
                         ))}
                     </Select>
-                    <Button color='primary'>button</Button>
+                    <Button color='primary'>Add post</Button>
                 </Form>
                 {triggerRedirect &&
                 <Redirect to='/'/>}

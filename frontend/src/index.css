@@ -46,6 +46,10 @@ li {
     list-style: none;
 }
 
+label{
+    min-height: 16px;
+}
+
 .bold{
     font-weight: bold;
 }

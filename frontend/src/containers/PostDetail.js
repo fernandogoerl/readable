@@ -26,7 +26,7 @@ class PostDetail extends Component {
 
 
     render() {
-        const { post, comments, location, match, } = this.props;
+        const { post, comments, location, match, openModal } = this.props;
 
         const orderedComments = orderComments(comments)
 
@@ -34,37 +34,39 @@ class PostDetail extends Component {
             <div className='post-detail'>
                 <Header url={{location, match}} />
                 <Link className='close-create-post' to='/'><FaArrowLeft/></Link>
-                <PostBlock data={post}/>
-                {orderedComments &&
-                <ul>
-                    {orderedComments.map((comment) => (
-                        <li key={comment.id}>
-                            <CommentBlock data={comment} refresh={this.refresh}/>
-                            {/* <div className='basic-block'>
-                                <div className='basic-container'>
-                                    <h4>{comment.body}</h4>
-                                </div>
-                                <div className='meta-info'>
-                                    <div>
-                                        {getMetaInfo(comment)}
+                <PostBlock data={post} openModal={openModal}/>
+                {orderedComments && (orderedComments.length > 0)
+                    ? <ul>
+                        {orderedComments.map((comment) => (
+                            <li key={comment.id}>
+                                <CommentBlock data={comment} refresh={this.refresh} openModal={openModal}/>
+                                {/* <div className='basic-block'>
+                                    <div className='basic-container'>
+                                        <h4>{comment.body}</h4>
                                     </div>
-                                    <div className='vote-score'>
-                                        {` ${comment.voteScore} `}
-                                        {comment.voteScore < 0
-                                            ? <div className='thumb-down'> <FaThumbsDown/> </div>
-                                            : <div className='thumb-up'>  <FaThumbsUp/> </div>
-                                        }
-                                        <div className='meta-votes'>
-                                            <div className='vote-up' onClick={() => {sendVoteComment({id: comment.id, option: 'upVote'});this.updateComments()}}><FaAngleUp/></div>
-                                            <div className='vote-down' onClick={() => sendVoteComment({id: comment.id, option: 'downVote'})}><FaAngleDown/></div>
+                                    <div className='meta-info'>
+                                        <div>
+                                            {getMetaInfo(comment)}
                                         </div>
+                                        <div className='vote-score'>
+                                            {` ${comment.voteScore} `}
+                                            {comment.voteScore < 0
+                                                ? <div className='thumb-down'> <FaThumbsDown/> </div>
+                                                : <div className='thumb-up'>  <FaThumbsUp/> </div>
+                                            }
+                                            <div className='meta-votes'>
+                                                <div className='vote-up' onClick={() => {sendVoteComment({id: comment.id, option: 'upVote'});this.updateComments()}}><FaAngleUp/></div>
+                                                <div className='vote-down' onClick={() => sendVoteComment({id: comment.id, option: 'downVote'})}><FaAngleDown/></div>
+                                            </div>
+                                        </div>
+                                        <div className='meta-edit'> <FaEdit/> </div>
                                     </div>
-                                    <div className='meta-edit'> <FaEdit/> </div>
-                                </div>
-                            </div> */}
-                        </li>
-                    ))}
-                </ul>}
+                                </div> */}
+                            </li>
+                        ))}
+                    </ul>
+                    : <h3 className='error-404'>{`No comments in this post yet.`}</h3>
+                }
                 <CommentForm parent={post} refresh={this.refresh}/>
             </div>
         );

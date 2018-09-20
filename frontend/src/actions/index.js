@@ -58,6 +58,17 @@ export const createNewPost = (data) => (dispatch) => {
         .then(() => dispatch(fetchAllPosts()));
 };
 
+export const editPostSuccessful = (post) => ({
+    type: types.EDIT_POST_SUCCESSFUL,
+    post,
+});
+
+export const editPost = (data) => (dispatch) => {
+    api.editPost(data)
+        .then((post) => dispatch(editPostSuccessful(post)))
+        .then(() => dispatch(fetchAllPosts()));
+};
+
 
 // COMMENTS ACTIONS
 
@@ -89,6 +100,19 @@ export const createCommentSuccessful = (comment) => ({
 export const createNewComment = (data) => (dispatch) => {
     api.addNewComment(data)
         .then((post) => dispatch(createCommentSuccessful(post)))
+};
+
+export const editCommentSuccessful = (comment) => ({
+    type: types.EDIT_COMMENT_SUCCESSFUL,
+    comment,
+});
+
+export const editComment = (data) => (dispatch) => {
+    api.editComment(data)
+        .then((comment) => {
+            dispatch(editCommentSuccessful(comment));
+            dispatch(fetchPostComments(comment.parentId));
+        })
 };
 
 

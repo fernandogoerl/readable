@@ -26,7 +26,7 @@ class PostBlock extends Component {
     }
 
     render() {
-        const { data, withLink, modal  } = this.props;
+        const { data, withLink, openModal  } = this.props;
 
         const upVote = {id: data.id, option: 'upVote' };
         const downVote = {id: data.id, option: 'downVote' };
@@ -42,7 +42,7 @@ class PostBlock extends Component {
                     <h4>{data.body}</h4>
                 </div>
                 <div className='meta-info'>
-                    <button className='meta-icons' onClick={() => modal.openEditModal(data)}> <FaEdit/> </button>
+                    <button className='meta-icons' onClick={() => openModal(data)}> <FaEdit/> </button>
                     <button className='meta-icons' onClick={() => this.confirmDelete(data.id)}> <FaTrash/> </button>
 
                     {data.title &&

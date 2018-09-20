@@ -26,8 +26,7 @@ function post (state = [], action) {
         case types.LOAD_SINGLE_POST :
         case types.VOTE_POST_SUCCESSFUL :
         case types.CREATE_POST_SUCCESSFUL :
-            return action.post;
-        case types.DELETE_POST_SUCCESSFUL :
+        case types.EDIT_POST_SUCCESSFUL :
             return action.post;
         default :
             return state;
@@ -50,6 +49,7 @@ function comment (state = [], action) {
         case types.LOAD_SINGLE_COMMENT :
         case types.VOTE_COMMENT_SUCCESSFUL :
         case types.CREATE_COMMENT_SUCCESSFUL :
+        case types.EDIT_COMMENT_SUCCESSFUL :
             return action.comment;
         default :
             return state;

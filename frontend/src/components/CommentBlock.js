@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom'
 
 import { sendVoteComment, deleteComment } from '../actions'
 import { getMetaInfo } from '../helpers';
@@ -13,7 +12,7 @@ class CommentBlock extends Component {
     sendVote = (comment, vote) => {
         this.props.sendVoteComment(vote);
         this.props.refresh();
-        
+
     }
 
     confirmDelete = (id) => {
@@ -25,7 +24,7 @@ class CommentBlock extends Component {
 
     render() {
 
-        const { data } = this.props;
+        const { data, openModal } = this.props;
 
         const upVote = {id: data.id, option: 'upVote' };
         const downVote = {id: data.id, option: 'downVote' };
@@ -36,7 +35,7 @@ class CommentBlock extends Component {
                     <h4>{data.body}</h4>
                 </div>
                 <div className='meta-info'>
-                    <Link to='#'><button className='meta-icons'> <FaEdit/> </button></Link>
+                    <button className='meta-icons' onClick={() => openModal(data)}> <FaEdit/> </button>
                     <button className='meta-icons' onClick={() => this.confirmDelete(data.id)}> <FaTrash/> </button>
                     <div className='meta-icons'>
                         <button className='thumb-down' onClick={(e) => this.sendVote(data, downVote)}> <FaThumbsDown/> </button>
@@ -64,4 +63,4 @@ const mapDispatchToProps = (dispatch) => {
         deleteComment: (id) => dispatch(deleteComment(id)),
     }
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CommentBlock))
+export default connect(mapStateToProps, mapDispatchToProps)(CommentBlock)
