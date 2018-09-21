@@ -23,7 +23,13 @@
 .basic-container h3{
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
+    display: inline-block;
 }
+
+.basic-container h3:hover{
+    text-decoration: underline;
+}
+
 .basic-container h4{
     margin: 1rem;
 }

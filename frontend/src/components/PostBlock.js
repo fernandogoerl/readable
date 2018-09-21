@@ -16,12 +16,13 @@ class PostBlock extends Component {
 
     sendVote = (vote) => {
         this.props.sendVotePost(vote);
+        setTimeout(() => {this.props.refresh()}, 25);
     }
 
     confirmDelete = (id) => {
         if (window.confirm(`You are about to delete the post!`)) {
             this.props.deletePost(id);
-            this.props.refresh();
+            setTimeout(() => {this.props.refresh()}, 25);
         }
     }
 
@@ -35,7 +36,7 @@ class PostBlock extends Component {
                 <div className='basic-container'>
                     {withLink
                         ? <Link to={`/posts/${data.id}`}>
-                            <h3>{data.title}</h3>
+                            <h3 className='post-title'>{data.title}</h3>
                         </Link>
                         : <h3>{data.title}</h3>
                     }

@@ -21,10 +21,10 @@ class Header extends Component {
 
         return (
             <div className='header'>
-                <h1 className='title'>Readable</h1>
+                <Link to='/'><h1 className='title'>Readable</h1></Link>
                 {url && (url.location.pathname === '/' || url.match.params.category) &&
                     <div className='header-bar'>
-                        <span className='bold'>{'Categories'}</span>
+                        <span className='bold'>{'Categories:'}</span>
                         <ul className='categories'>
                             <li className={this.manageCategoryActive(current.category, 'all')}><Link to='/'>All</Link></li>
                             {categories &&
@@ -36,7 +36,7 @@ class Header extends Component {
                 }
                 {url && (url.location.pathname === '/' || url.match.params.category) &&
                     <div className='header-bar'>
-                        <span className='bold'>{'Order by'}</span>
+                        <span className='bold'>{'Order by:'}</span>
                         <ul className='order'>
                             <li className={this.manageOrderActive(current.order, 'voteScore')}><Link to={{ search: '?order=voteScore' }}>{'votes'}</Link></li>
                             <li className={this.manageOrderActive(current.order, 'title')}><Link to={{ search: '?order=title' }}>{'title'}</Link></li>

@@ -21,20 +21,20 @@ class PostDetail extends Component {
 
     refresh = () => {
         this.props.fetchSinglePost(this.props.match.params.id);
-        setTimeout(() => {this.props.fetchPostComments(this.props.match.params.id)}, 50);
+        setTimeout(() => {this.props.fetchPostComments(this.props.match.params.id)}, 25);
     }
 
 
     render() {
         const { post, comments, location, match, openModal } = this.props;
 
-        const orderedComments = orderComments(comments)
+        const orderedComments = orderComments(comments, 'timestamp')
 
         return (
             <div className='post-detail'>
                 <Header url={{location, match}} />
                 <Link className='close-create-post' to='/'><FaArrowLeft/></Link>
-                <PostBlock data={post} openModal={openModal}/>
+                <PostBlock data={post} openModal={openModal} refresh={this.refresh} />
                 {orderedComments && (orderedComments.length > 0)
                     ? <ul>
                         {orderedComments.map((comment) => (

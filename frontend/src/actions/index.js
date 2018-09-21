@@ -125,8 +125,7 @@ export const votePostSuccessful = (post) => ({
 
 export const sendVotePost = (postData) => (dispatch) => {
     api.votePost(postData)
-        .then((post) => dispatch(votePostSuccessful(post)))
-        .then(() => dispatch(fetchAllPosts()));
+        .then((post) => dispatch(votePostSuccessful(post)));
 };
 
 export const voteCommentSuccessful = (comment) => ({

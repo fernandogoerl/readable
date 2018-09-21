@@ -22,7 +22,7 @@ class Home extends Component {
         let currentCategory = this.props.match.params.category;
         if (currentCategory) {
             this.props.fetchCategoryPosts(currentCategory);
-            this.setState({currentCategory});
+            this.setState({ currentCategory });
         } else this.props.fetchAllPosts();
 
     }
@@ -31,7 +31,7 @@ class Home extends Component {
         let currentCategory = this.props.match.params.category;
         if (this.props.location.pathname !== prevProps.location.pathname && currentCategory) {
             this.props.fetchCategoryPosts(currentCategory);
-            this.setState({currentCategory});
+            this.setState({ currentCategory });
         }
         if (this.props.location.search && this.props.location.search !== prevProps.location.search ) {
             let currentOrder = this.props.location.search.substring(7);
@@ -56,7 +56,7 @@ class Home extends Component {
         let currentCategory = this.props.match.params.category;
         if (currentCategory) {
             this.props.fetchCategoryPosts(currentCategory);
-            this.setState({currentCategory});
+            this.setState({ currentCategory });
         } else this.props.fetchAllPosts();
     }
 
