@@ -1,7 +1,7 @@
 .content-container{
     margin: auto;
-}
 
+}
 .overlay {
     position: fixed;
     top: 0px;
@@ -34,9 +34,9 @@
     right: 1rem;
     cursor: pointer;
     color: #272727
-}
 
-.close-button svg{
-    width: 1.5rem;
-    height: 1.5rem;
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 }

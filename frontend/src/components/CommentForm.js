@@ -8,8 +8,6 @@ import uuid from 'uuid';
 import serializeForm from 'form-serialize';
 import { Form, Input, Button } from 'muicss/react';
 
-import './CommentForm.css'
-
 
 class CommentForm extends Component {
 

@@ -9,7 +9,6 @@ import PostDetail from './PostDetail';
 
 import Modal from 'react-modal';
 import { FaTimes } from 'react-icons/fa';
-import './App.css'
 
 Modal.setAppElement('#root');
 

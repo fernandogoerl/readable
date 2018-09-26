@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 
 import { fetchCategories } from '../actions'
 
-import './Header.css'
-
 class Header extends Component {
 
     componentDidMount() {

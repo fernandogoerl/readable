@@ -7,7 +7,6 @@ import { getMetaInfo } from '../helpers';
 
 
 import { FaThumbsUp, FaThumbsDown, FaEdit, FaComment, FaTrash } from 'react-icons/fa';
-import './BasicBlock.css'
 
 class PostBlock extends Component {
 

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import * as types from '../actions/types'
+import * as types from '../actions/types';
 
 
 function categories (state = [], action) {

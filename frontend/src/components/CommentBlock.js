@@ -5,7 +5,6 @@ import { sendVoteComment, deleteComment } from '../actions'
 import { getMetaInfo } from '../helpers';
 
 import { FaThumbsUp, FaThumbsDown, FaEdit, FaTrash } from 'react-icons/fa';
-import './BasicBlock.css'
 
 class CommentBlock extends Component {
 

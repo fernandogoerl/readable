@@ -8,8 +8,6 @@ import Header from '../components/Header';
 import PostBlock from '../components/PostBlock';
 import CreatePostButton from '../components/CreatePostButton';
 
-import './Home.css'
-
 
 class Home extends Component {
 

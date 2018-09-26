@@ -8,6 +8,8 @@
 
 # production
 /build
+.sass-cache
+*.css
 
 # misc
 .DS_Store

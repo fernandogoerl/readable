@@ -10,8 +10,6 @@ import serializeForm from 'form-serialize';
 import { Form, Input, Select, Option, Button } from 'muicss/react';
 import { FaArrowLeft } from 'react-icons/fa';
 
-import './CreatePost.css';
-
 class CreatePost extends Component {
 
     state = {
