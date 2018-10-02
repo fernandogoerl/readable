@@ -6,11 +6,8 @@ import CreatePost from '../components/CreatePost';
 import Footer from '../components/Footer';
 import EditModal from '../components/EditModal';
 import PostDetail from './PostDetail';
-
-import Modal from 'react-modal';
 import { FaTimes } from 'react-icons/fa';
 
-Modal.setAppElement('#root');
 
 
 export default class App extends Component {
@@ -30,7 +27,7 @@ export default class App extends Component {
     render() {
         const { editModalOpen, modalData } = this.state;
         return (
-            <div>
+            <div id='app'>
                 <div className='content-container'>
                     <Route exact path='/' render={(props) => <Home {...props} openModal={this.openModal}/>} />
                     <Route exact path='/:category' render={(props) => <Home {...props} openModal={this.openModal}/>} />

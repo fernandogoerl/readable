@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import * as types from '../actions/types';
 
+import comments from './Comments';
+
 
 function categories (state = [], action) {
     switch (action.type) {
@@ -28,17 +30,6 @@ function post (state = [], action) {
         case types.CREATE_POST_SUCCESSFUL :
         case types.EDIT_POST_SUCCESSFUL :
             return action.post;
-        default :
-            return state;
-    }
-}
-
-function comments (state = [], action) {
-    switch (action.type) {
-        case types.LOAD_POST_COMMENTS :
-            return action.comments;
-        case types.DELETE_COMMENT_SUCCESSFUL :
-            return state.filter((comment) => comment.id !== action.id);
         default :
             return state;
     }
