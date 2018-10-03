@@ -17,7 +17,7 @@ class CommentBlock extends Component {
     confirmDelete = (id) => {
         if (window.confirm('You are about to delete this comment!')) {
             this.props.deleteComment(id);
-            this.props.refresh();
+            setTimeout(() => {this.props.refresh()}, 50);
         }
     }
 

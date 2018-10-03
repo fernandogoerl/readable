@@ -16,29 +16,35 @@ class Header extends Component {
 
     render() {
         const { categories, url, current } = this.props;
+        let currentCategory = 'all';
+        let currentOrder = 'voteScore';
+        if(current) {
+            currentCategory = current.category;
+            currentOrder = current.order;
+        }
 
         return (
             <div className='header'>
                 <Link to='/'><h1 className='title'>Readable</h1></Link>
-                {url && (url.location.pathname === '/' || url.match.params.category) &&
+                {url && (url.match.path !== '/:category/:id') &&
                     <div className='header-bar'>
                         <span className='bold'>{'Categories:'}</span>
                         <ul className='categories'>
-                            <li className={this.manageCategoryActive(current.category, 'all')}><Link to='/'>All</Link></li>
+                            <li className={this.manageCategoryActive(currentCategory, 'all')}><Link to='/'>All</Link></li>
                             {categories &&
                             categories.map((category) => (
-                                <li key={category.name} className={this.manageCategoryActive(current.category, category.path)}><Link to={`/${category.path}`}>{category.name}</Link></li>
+                                <li key={category.name} className={this.manageCategoryActive(currentCategory, category.path)}><Link to={`/${category.path}`}>{category.name}</Link></li>
                             ))}
                         </ul>
                     </div>
                 }
-                {url && (url.location.pathname === '/' || url.match.params.category) &&
+                {url && (url.match.path !== '/:category/:id') &&
                     <div className='header-bar'>
                         <span className='bold'>{'Order by:'}</span>
                         <ul className='order'>
-                            <li className={this.manageOrderActive(current.order, 'voteScore')}><Link to={{ search: '?order=voteScore' }}>{'votes'}</Link></li>
-                            <li className={this.manageOrderActive(current.order, 'title')}><Link to={{ search: '?order=title' }}>{'title'}</Link></li>
-                            <li className={this.manageOrderActive(current.order, 'timestamp')}><Link to={{ search: '?order=timestamp' }}>{'time'}</Link></li>
+                            <li className={this.manageOrderActive(currentOrder, 'voteScore')}><Link to={{ search: '?order=voteScore' }}>{'votes'}</Link></li>
+                            <li className={this.manageOrderActive(currentOrder, 'title')}><Link to={{ search: '?order=title' }}>{'title'}</Link></li>
+                            <li className={this.manageOrderActive(currentOrder, 'timestamp')}><Link to={{ search: '?order=timestamp' }}>{'time'}</Link></li>
                         </ul>
                     </div>
                 }

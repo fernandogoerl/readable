@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { sendVotePost, deletePost } from '../actions'
@@ -10,23 +10,35 @@ import { FaThumbsUp, FaThumbsDown, FaEdit, FaComment, FaTrash } from 'react-icon
 
 class PostBlock extends Component {
 
+    state = {
+        triggerRedirect: false,
+    }
 
     deleteClick = (id) => {this.props.deletePost(id);}
 
     sendVote = (vote) => {
         this.props.sendVotePost(vote);
-        setTimeout(() => {this.props.refresh()}, 25);
+        setTimeout(() => {this.props.refresh()}, 50);
     }
 
     confirmDelete = (id) => {
         if (window.confirm(`You are about to delete the post!`)) {
             this.props.deletePost(id);
-            setTimeout(() => {this.props.refresh()}, 25);
+            // setTimeout(() => {this.props.refresh()}, 50);
+            this.setState({triggerRedirect: true});
         }
     }
 
     render() {
         const { data, withLink, openModal  } = this.props;
+
+        if(this.state.triggerRedirect === true){
+            return <Redirect to='/'/>
+        }
+
+        if(this.props.data.id === undefined){
+            return <Redirect to='/'/>
+        }
 
         const upVote = {id: data.id, option: 'upVote' };
         const downVote = {id: data.id, option: 'downVote' };
@@ -34,7 +46,7 @@ class PostBlock extends Component {
             <div className='basic-block'>
                 <div className='basic-container'>
                     {withLink
-                        ? <Link to={`/posts/${data.id}`}>
+                        ? <Link to={`/${data.category}/${data.id}`}>
                             <h3 className='post-title'>{data.title}</h3>
                         </Link>
                         : <h3>{data.title}</h3>

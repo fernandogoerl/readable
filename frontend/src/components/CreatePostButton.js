@@ -11,7 +11,7 @@ class CreatePostButton extends Component {
             //     <Link to={'/post/add'}>Add a post</Link>
             // </div>
             <div className='open-search'>
-                <Link to={'/post/add'}><FaPlus/></Link>
+                <Link to={'/createNewPost'}><FaPlus/></Link>
             </div>
         );
     }

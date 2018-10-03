@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Home from './Home';
 import CreatePost from '../components/CreatePost';
@@ -32,10 +32,12 @@ export default class App extends Component {
         return (
             <div>
                 <div className='content-container'>
-                    <Route exact path='/' render={(props) => <Home {...props} openModal={this.openModal}/>} />
-                    <Route exact path='/:category' render={(props) => <Home {...props} openModal={this.openModal}/>} />
-                    <Route exact path='/post/add' render={(props) => <CreatePost {...props} openModal={this.openModal}/>} />
-                    <Route exact path='/posts/:id' render={(props) => <PostDetail {...props} openModal={this.openModal}/>} />
+                    <Switch>
+                        <Route exact path='/' render={(props) => <Home {...props} openModal={this.openModal}/>} />
+                        <Route exact path='/createNewPost' render={(props) => <CreatePost {...props} openModal={this.openModal}/>} />
+                        <Route path='/:category' render={(props) => <Home {...props} openModal={this.openModal}/>} />
+                        <Route path='/:category/:id' render={(props) => <PostDetail {...props} openModal={this.openModal}/>} />
+                    </Switch>
                     <Footer/>
                 </div>
                 <Modal

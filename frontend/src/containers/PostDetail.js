@@ -21,7 +21,7 @@ class PostDetail extends Component {
 
     refresh = () => {
         this.props.fetchSinglePost(this.props.match.params.id);
-        setTimeout(() => {this.props.fetchPostComments(this.props.match.params.id)}, 25);
+        setTimeout(() => {this.props.fetchPostComments(this.props.match.params.id)}, 50);
     }
 
 

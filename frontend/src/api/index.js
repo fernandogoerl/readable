@@ -1,4 +1,4 @@
-const api = "http://localhost:3001"
+const api = "https://fgoerl-readable-api-server.herokuapp.com"
 
 let token = localStorage.token
 if (!token) {
