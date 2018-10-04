@@ -26,14 +26,25 @@ class Home extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        let currentCategory = this.props.match.params.category;
-        if (this.props.location.pathname !== prevProps.location.pathname && currentCategory) {
+        let currentCategory = (this.props.match.params.category !== undefined ) ? this.props.match.params.category : 'all';
+        console.log('update: '+currentCategory);
+        // if(currentCategory === undefined) {
+        //     currentCategory = 'all';
+        //     // this.setState({currentCategory});
+        // }
+
+        if (this.props.location.pathname !== prevProps.location.pathname && currentCategory !== 'all') {
             this.props.fetchCategoryPosts(currentCategory);
             this.setState({ currentCategory });
         }
         if (this.props.location.search && this.props.location.search !== prevProps.location.search ) {
             let currentOrder = this.props.location.search.substring(7);
             this.setState({ currentOrder });
+        }
+        console.log('estado '+this.state.currentCategory);
+        if(this.state.currentCategory !== this.props.match.params.category){
+
+            console.log('teste ruim')
         }
     }
 
@@ -58,6 +69,11 @@ class Home extends Component {
         } else this.props.fetchAllPosts();
     }
 
+    toCategoryAll = () => {
+        this.props.fetchAllPosts();
+        this.setState({currentCategory: 'all'});
+    };
+
     render() {
         const { posts, location, match, openModal } = this.props;
         const { currentCategory, currentOrder } = this.state;
@@ -65,7 +81,7 @@ class Home extends Component {
 
         return (
             <div>
-                <Header url={{location, match}} current={{category: currentCategory, order:currentOrder}}/>
+                <Header url={{location, match}} current={{category: currentCategory, order:currentOrder}} refresh={this.toCategoryAll}/>
                 {orderedPosts && <div className='home-content'>
                     <h2 className='center'>{`${this.manageOrder(currentOrder)} at /${currentCategory}`}</h2>
                     {orderedPosts.length > 0

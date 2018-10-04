@@ -12,16 +12,21 @@ class Header extends Component {
 
     manageOrderActive = (currentOrder, order) => (currentOrder === order ? 'active' : '');
 
-    manageCategoryActive = (currentCategory, category) => ( (currentCategory === category) ? 'active' : '');
+    manageCategoryActive = (currentCategory, category) => {
+        // console.log(currentCategory);
+        return (currentCategory === category) ? 'active' : '';};
 
     render() {
         const { categories, url, current } = this.props;
-        let currentCategory = 'all';
-        let currentOrder = 'voteScore';
-        if(current) {
+        let currentCategory = '';
+        let currentOrder = '';
+        if(url && (url.match.path !== '/:category/:id')){
             currentCategory = current.category;
             currentOrder = current.order;
+
         }
+        console.log(current)
+
 
         return (
             <div className='header'>
@@ -30,7 +35,7 @@ class Header extends Component {
                     <div className='header-bar'>
                         <span className='bold'>{'Categories:'}</span>
                         <ul className='categories'>
-                            <li className={this.manageCategoryActive(currentCategory, 'all')}><Link to='/'>All</Link></li>
+                            <li className={this.manageCategoryActive(currentCategory, 'all')}><Link to='/' onClick={() => {currentCategory = 'all'; this.props.refresh()}}>All</Link></li>
                             {categories &&
                             categories.map((category) => (
                                 <li key={category.name} className={this.manageCategoryActive(currentCategory, category.path)}><Link to={`/${category.path}`}>{category.name}</Link></li>

@@ -35,7 +35,7 @@ export default class App extends Component {
                     <Switch>
                         <Route exact path='/' render={(props) => <Home {...props} openModal={this.openModal}/>} />
                         <Route exact path='/createNewPost' render={(props) => <CreatePost {...props} openModal={this.openModal}/>} />
-                        <Route path='/:category' render={(props) => <Home {...props} openModal={this.openModal}/>} />
+                        <Route exact path='/:category' render={(props) => <Home {...props} openModal={this.openModal}/>} />
                         <Route path='/:category/:id' render={(props) => <PostDetail {...props} openModal={this.openModal}/>} />
                     </Switch>
                     <Footer/>
