@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import { fetchAllPosts, fetchCategoryPosts } from '../actions';
+import { fetchAllPosts, fetchCategoryPosts, fetchCategories, } from '../actions';
 import { orderPosts } from '../helpers';
 
 import Header from '../components/Header';
@@ -18,6 +19,7 @@ class Home extends Component {
 
     componentDidMount() {
         let currentCategory = this.props.match.params.category;
+        this.props.fetchCategories();
         if (currentCategory) {
             this.props.fetchCategoryPosts(currentCategory);
             this.setState({ currentCategory });
@@ -27,11 +29,6 @@ class Home extends Component {
 
     componentDidUpdate(prevProps) {
         let currentCategory = (this.props.match.params.category !== undefined ) ? this.props.match.params.category : 'all';
-        console.log('update: '+currentCategory);
-        // if(currentCategory === undefined) {
-        //     currentCategory = 'all';
-        //     // this.setState({currentCategory});
-        // }
 
         if (this.props.location.pathname !== prevProps.location.pathname && currentCategory !== 'all') {
             this.props.fetchCategoryPosts(currentCategory);
@@ -40,11 +37,6 @@ class Home extends Component {
         if (this.props.location.search && this.props.location.search !== prevProps.location.search ) {
             let currentOrder = this.props.location.search.substring(7);
             this.setState({ currentOrder });
-        }
-        console.log('estado '+this.state.currentCategory);
-        if(this.state.currentCategory !== this.props.match.params.category){
-
-            console.log('teste ruim')
         }
     }
 
@@ -75,13 +67,16 @@ class Home extends Component {
     };
 
     render() {
-        const { posts, location, match, openModal } = this.props;
+        const { posts, location, match, openModal, categories } = this.props;
         const { currentCategory, currentOrder } = this.state;
         let orderedPosts = location.search ? orderPosts(posts, location.search) : orderPosts(posts, 'voteScore');
-
+        if(categories.length > 0 && !categories.find((category) => category.path === currentCategory) && currentCategory!=='all'){
+            return <Redirect to='/404'/>
+        }
+        
         return (
             <div>
-                <Header url={{location, match}} current={{category: currentCategory, order:currentOrder}} refresh={this.toCategoryAll}/>
+                <Header url={{location, match}} current={{category: currentCategory, order:currentOrder}} refresh={this.toCategoryAll} categories={categories}/>
                 {orderedPosts && <div className='home-content'>
                     <h2 className='center'>{`${this.manageOrder(currentOrder)} at /${currentCategory}`}</h2>
                     {orderedPosts.length > 0
@@ -102,13 +97,15 @@ class Home extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         posts: state.posts,
+        categories: state.categories,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllPosts: () => dispatch(fetchAllPosts()),
-        fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category))
+        fetchCategoryPosts: (category) => dispatch(fetchCategoryPosts(category)),
+        fetchCategories: () => dispatch(fetchCategories()),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

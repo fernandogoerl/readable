@@ -40,28 +40,6 @@ class PostDetail extends Component {
                         {orderedComments.map((comment) => (
                             <li key={comment.id}>
                                 <CommentBlock data={comment} refresh={this.refresh} openModal={openModal}/>
-                                {/* <div className='basic-block'>
-                                    <div className='basic-container'>
-                                        <h4>{comment.body}</h4>
-                                    </div>
-                                    <div className='meta-info'>
-                                        <div>
-                                            {getMetaInfo(comment)}
-                                        </div>
-                                        <div className='vote-score'>
-                                            {` ${comment.voteScore} `}
-                                            {comment.voteScore < 0
-                                                ? <div className='thumb-down'> <FaThumbsDown/> </div>
-                                                : <div className='thumb-up'>  <FaThumbsUp/> </div>
-                                            }
-                                            <div className='meta-votes'>
-                                                <div className='vote-up' onClick={() => {sendVoteComment({id: comment.id, option: 'upVote'});this.updateComments()}}><FaAngleUp/></div>
-                                                <div className='vote-down' onClick={() => sendVoteComment({id: comment.id, option: 'downVote'})}><FaAngleDown/></div>
-                                            </div>
-                                        </div>
-                                        <div className='meta-edit'> <FaEdit/> </div>
-                                    </div>
-                                </div> */}
                             </li>
                         ))}
                     </ul>

@@ -5,6 +5,7 @@ import Home from './Home';
 import CreatePost from '../components/CreatePost';
 import Footer from '../components/Footer';
 import EditModal from '../components/EditModal';
+import NoMatch from '../components/NoMatch';
 import PostDetail from './PostDetail';
 
 import Modal from 'react-modal';
@@ -33,6 +34,7 @@ export default class App extends Component {
             <div>
                 <div className='content-container'>
                     <Switch>
+                        <Route exact path='/404' component={NoMatch}/>
                         <Route exact path='/' render={(props) => <Home {...props} openModal={this.openModal}/>} />
                         <Route exact path='/createNewPost' render={(props) => <CreatePost {...props} openModal={this.openModal}/>} />
                         <Route exact path='/:category' render={(props) => <Home {...props} openModal={this.openModal}/>} />

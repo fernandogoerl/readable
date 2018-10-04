@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { fetchCategories } from '../actions'
 
 class Header extends Component {
-
-    componentDidMount() {
-        this.props.fetchCategories();
-    }
 
     manageOrderActive = (currentOrder, order) => (currentOrder === order ? 'active' : '');
 
     manageCategoryActive = (currentCategory, category) => {
-        // console.log(currentCategory);
         return (currentCategory === category) ? 'active' : '';};
 
     render() {
@@ -23,9 +15,7 @@ class Header extends Component {
         if(url && (url.match.path !== '/:category/:id')){
             currentCategory = current.category;
             currentOrder = current.order;
-
         }
-        console.log(current)
 
 
         return (
@@ -36,6 +26,7 @@ class Header extends Component {
                         <span className='bold'>{'Categories:'}</span>
                         <ul className='categories'>
                             <li className={this.manageCategoryActive(currentCategory, 'all')}><Link to='/' onClick={() => {currentCategory = 'all'; this.props.refresh()}}>All</Link></li>
+                            <li><Link to='/otherstuff'>Other Stuff</Link></li>
                             {categories &&
                             categories.map((category) => (
                                 <li key={category.name} className={this.manageCategoryActive(currentCategory, category.path)}><Link to={`/${category.path}`}>{category.name}</Link></li>
@@ -58,16 +49,4 @@ class Header extends Component {
     };
 };
 
-const mapStateToProps = (state, ownProps) => {
-	return {
-        categories: state.categories
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchCategories: () => dispatch(fetchCategories()),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default Header
