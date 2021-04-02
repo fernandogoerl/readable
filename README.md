@@ -30,7 +30,7 @@ React, Redux and Node
 
 $ npm run build
 
-To run release version localy it is necessary to start a server. You can user serve -s build.
+To run release version locally it is necessary to start a server. You can user serve -s build.
 
 ## API Server
 
